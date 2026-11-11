@@ -6,7 +6,7 @@ Core tasks are test-first: write the failing table rows or fixture from the spec
 
 - [x] 1.1 `git init`; scaffold Vite + React + TypeScript (strict) with pnpm; add ESLint, Prettier, Vitest and the scripts listed in `AGENTS.md`; add commitlint (`@commitlint/config-conventional`, types and scopes from `AGENTS.md`, plus a custom rule rejecting any message that mentions Claude, Anthropic or a `Co-Authored-By` trailer for them) run from a husky `commit-msg` hook, and verify the hook rejects a bad message before making the first commit
 - [x] 1.2 `src/core/convert.ts`: `convert(sheet, key, style)` handling only plain major/minor triads on chord-only lines, key hard-coded to C in the UI
-- [ ] 1.3 One golden fixture (`fixtures/skeleton.input.txt` / `.expected.txt`) and the golden-file test runner
+- [x] 1.3 One golden fixture (`fixtures/skeleton.input.txt` / `.expected.txt`) and the golden-file test runner
 - [ ] 1.4 One screen: textarea and live monospaced output
 - [ ] 1.5 GitHub Actions: typecheck, lint, test on push; deploy to GitHub Pages from `main` (Vite `base` set)
 - [ ] 1.6 Open the deployed URL on phone and desktop
