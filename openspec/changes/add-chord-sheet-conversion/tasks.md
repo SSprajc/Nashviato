@@ -18,9 +18,9 @@ Core tasks are test-first: write the failing table rows or fixture from the spec
 
 ## 3. Line classification
 
-- [ ] 3.1 Table tests for the "Line classification" scenarios
-- [ ] 3.2 `classifyLine`: chord line, header with trailing chords, pass-through; allowed markers
-- [ ] 3.3 Property tests: never throws, non-chord lines unchanged, line count preserved
+- [x] 3.1 Table tests for the "Line classification" scenarios
+- [x] 3.2 `classifyLine`: chord line, header with trailing chords, pass-through; allowed markers
+- [x] 3.3 Property tests: never throws, non-chord lines unchanged, line count preserved
 
 ## 4. Degrees
 

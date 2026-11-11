@@ -42,6 +42,28 @@ describe('convert (walking skeleton: plain triads on chord-only lines)', () => {
     expect(convert(line, C_MAJOR, 'roman')).toBe(line);
   });
 
+  it('Header with trailing chords', () => {
+    expect(convert('Intro: G  D  Em  C', G_MAJOR, 'roman')).toBe('Intro: I  V  VIm  IV');
+  });
+
+  it('Markers pass through', () => {
+    expect(convert('| C  | N.C. | G  x2', C_MAJOR, 'roman')).toBe('| I  | N.C. | V  x2');
+  });
+
+  it('Malformed bass', () => {
+    const line = 'C/X  G';
+    expect(convert(line, C_MAJOR, 'roman')).toBe(line);
+  });
+
+  it('Capo line passes through', () => {
+    expect(convert('Capo: 3\nC  G', C_MAJOR, 'roman')).toBe('Capo: 3\nI  V');
+  });
+
+  it('leaves key and tuning lines unchanged', () => {
+    const sheet = 'Key: G\nTuning: D A D G B E';
+    expect(convert(sheet, G_MAJOR, 'roman')).toBe(sheet);
+  });
+
   it('Empty input', () => {
     expect(convert('', C_MAJOR, 'roman')).toBe('');
   });

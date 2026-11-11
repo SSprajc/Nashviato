@@ -1,13 +1,12 @@
-import { parseChord } from './parseChord';
-import type { Key, Letter, NotationStyle } from './types';
+import { classifyLine } from './classifyLine';
+import type { Key, Letter, NotationStyle, ParsedChord } from './types';
 
-// Walking skeleton (task 1.2). Deliberately narrow:
-// - tokens are parsed by `parseChord`, but only natural roots without a slash
-//   bass convert; the suffix is copied verbatim;
-// - a line converts only if every token is such a chord whose root is on the
-//   major scale of the tonic; anything else passes through unchanged;
-// - converted tokens replace source tokens in place, spacing untouched.
-// Classification, accidentals, slash basses and alignment are groups 3-6.
+// Still narrow in two places until later task groups:
+// - only natural roots without a slash bass, on the major scale of the tonic,
+//   convert; a chord line holding any other chord passes through unchanged
+//   (accidentals and slash basses are group 4);
+// - converted chords replace source chords in place, spacing untouched
+//   (alignment is group 6).
 
 const LETTER_PITCH: Record<Letter, number> = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
 
@@ -16,27 +15,26 @@ const NUMERALS: Record<NotationStyle, Record<number, string>> = {
   roman: { 0: 'I', 2: 'II', 4: 'III', 5: 'IV', 7: 'V', 9: 'VI', 11: 'VII' },
 };
 
-function convertToken(token: string, key: Key, style: NotationStyle): string | null {
-  const chord = parseChord(token);
-  if (!chord || chord.root.accidental !== 0 || chord.bass) return null;
+function convertChord(chord: ParsedChord, key: Key, style: NotationStyle): string | null {
+  if (chord.root.accidental !== 0 || chord.bass) return null;
   const pitch = LETTER_PITCH[chord.root.letter];
   const numeral = NUMERALS[style][(pitch - key.tonic + 12) % 12];
   return numeral === undefined ? null : numeral + chord.suffix;
 }
 
 function convertLine(line: string, key: Key, style: NotationStyle): string {
-  // Odd indices are the whitespace runs captured by the split.
-  const parts = line.split(/(\s+)/);
-  let chordCount = 0;
-  for (let i = 0; i < parts.length; i += 2) {
-    const token = parts[i]!;
-    if (token === '') continue;
-    const converted = convertToken(token, key, style);
+  const classified = classifyLine(line);
+  if (classified.kind === 'text') return line;
+  let out = '';
+  let copied = 0;
+  for (const token of classified.tokens) {
+    if (token.kind !== 'chord') continue;
+    const converted = convertChord(token.chord, key, style);
     if (converted === null) return line;
-    parts[i] = converted;
-    chordCount++;
+    out += line.slice(copied, token.column) + converted;
+    copied = token.column + token.text.length;
   }
-  return chordCount === 0 ? line : parts.join('');
+  return out + line.slice(copied);
 }
 
 /**
