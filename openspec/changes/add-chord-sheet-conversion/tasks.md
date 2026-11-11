@@ -9,7 +9,7 @@ Core tasks are test-first: write the failing table rows or fixture from the spec
 - [x] 1.3 One golden fixture (`fixtures/skeleton.input.txt` / `.expected.txt`) and the golden-file test runner
 - [x] 1.4 One screen: textarea and live monospaced output
 - [x] 1.5 GitHub Actions: typecheck, lint, test on push; deploy to GitHub Pages from `main` (Vite `base` set at build time from the Pages settings)
-- [ ] 1.6 Open the deployed URL on phone and desktop
+- [x] 1.6 Open the deployed URL on phone and desktop
 
 ## 2. Chord grammar
 
