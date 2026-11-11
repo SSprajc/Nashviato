@@ -13,8 +13,8 @@ Core tasks are test-first: write the failing table rows or fixture from the spec
 
 ## 2. Chord grammar
 
-- [ ] 2.1 Table tests for the "Chord token grammar" scenarios, plus a wider accept/reject table
-- [ ] 2.2 `parseChord(token)`: root, opaque suffix, optional bass; `♯`/`♭` accepted; `H` rejected
+- [x] 2.1 Table tests for the "Chord token grammar" scenarios, plus a wider accept/reject table
+- [x] 2.2 `parseChord(token)`: root, opaque suffix, optional bass; `♯`/`♭` accepted; `H` rejected
 
 ## 3. Line classification
 

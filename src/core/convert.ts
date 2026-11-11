@@ -1,15 +1,15 @@
-import type { Key, NotationStyle } from './types';
+import { parseChord } from './parseChord';
+import type { Key, Letter, NotationStyle } from './types';
 
 // Walking skeleton (task 1.2). Deliberately narrow:
-// - a chord is a natural root plus an optional `m` (plain major/minor triad);
+// - tokens are parsed by `parseChord`, but only natural roots without a slash
+//   bass convert; the suffix is copied verbatim;
 // - a line converts only if every token is such a chord whose root is on the
 //   major scale of the tonic; anything else passes through unchanged;
 // - converted tokens replace source tokens in place, spacing untouched.
-// The real grammar, classification, accidentals and alignment are groups 2-6.
+// Classification, accidentals, slash basses and alignment are groups 3-6.
 
-const TRIAD = /^([A-G])(m?)$/;
-
-const LETTER_PITCH: Record<string, number> = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+const LETTER_PITCH: Record<Letter, number> = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
 
 /** Per style: semitones above the tonic -> degree numeral, for tones of the major scale. */
 const NUMERALS: Record<NotationStyle, Record<number, string>> = {
@@ -17,13 +17,11 @@ const NUMERALS: Record<NotationStyle, Record<number, string>> = {
 };
 
 function convertToken(token: string, key: Key, style: NotationStyle): string | null {
-  const match = TRIAD.exec(token);
-  if (!match) return null;
-  const [, letter = '', suffix = ''] = match;
-  const pitch = LETTER_PITCH[letter];
-  if (pitch === undefined) return null;
+  const chord = parseChord(token);
+  if (!chord || chord.root.accidental !== 0 || chord.bass) return null;
+  const pitch = LETTER_PITCH[chord.root.letter];
   const numeral = NUMERALS[style][(pitch - key.tonic + 12) % 12];
-  return numeral === undefined ? null : numeral + suffix;
+  return numeral === undefined ? null : numeral + chord.suffix;
 }
 
 function convertLine(line: string, key: Key, style: NotationStyle): string {
