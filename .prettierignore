@@ -1,0 +1,6 @@
+dist
+coverage
+pnpm-lock.yaml
+# Golden fixtures are compared byte-for-byte; docs and specs are hand-formatted.
+fixtures
+*.md

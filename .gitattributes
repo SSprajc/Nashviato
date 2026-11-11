@@ -1,0 +1,2 @@
+# LF everywhere so golden fixtures compare byte-for-byte on every platform.
+* text=auto eol=lf
