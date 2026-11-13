@@ -58,6 +58,65 @@ describe('classifyLine: spec scenarios (Line classification)', () => {
   it('Malformed bass', () => {
     expect(shape('C/X  G')).toBeNull();
   });
+
+  it('Bar lines touching chords', () => {
+    expect(shape('|C  G|Am  F|')).toEqual([
+      ['marker', '|', 0],
+      ['chord', 'C', 1],
+      ['chord', 'G', 4],
+      ['marker', '|', 5],
+      ['chord', 'Am', 6],
+      ['chord', 'F', 10],
+      ['marker', '|', 11],
+    ]);
+  });
+
+  it('Chords in parentheses', () => {
+    expect(shape('C  (G/B)  Am')).toEqual([
+      ['chord', 'C', 0],
+      ['marker', '(', 3],
+      ['chord', 'G/B', 4],
+      ['marker', ')', 7],
+      ['chord', 'Am', 10],
+    ]);
+  });
+
+  it('Comma-separated chords', () => {
+    expect(shape('Intro: G, D/F#, Em')).toEqual([
+      ['header', 'Intro:', 0],
+      ['chord', 'G', 7],
+      ['marker', ',', 8],
+      ['chord', 'D/F#', 10],
+      ['marker', ',', 14],
+      ['chord', 'Em', 16],
+    ]);
+  });
+
+  it('Dash-joined chords', () => {
+    expect(shape('A-7-D7-Gmaj7')).toEqual([
+      ['chord', 'A-7', 0],
+      ['marker', '-', 3],
+      ['chord', 'D7', 4],
+      ['marker', '-', 6],
+      ['chord', 'Gmaj7', 7],
+    ]);
+  });
+
+  it('Footnote star', () => {
+    expect(shape('C*  G')).toEqual([
+      ['chord', 'C', 0],
+      ['marker', '*', 1],
+      ['chord', 'G', 4],
+    ]);
+  });
+
+  it('Tab line whose string name is a chord', () => {
+    expect(shape('E|---3---2---0---|')).toBeNull();
+  });
+
+  it.each(['C (hold) G', 'C  x32010'])('Annotation makes the line pass through: %s', (line) => {
+    expect(shape(line)).toBeNull();
+  });
 });
 
 describe('classifyLine: chord lines', () => {
@@ -199,7 +258,7 @@ describe('classifyLine: pass-through lines', () => {
     ['Placeholder words go here', 'lyric line'],
     ['C G and', 'one non-chord token'],
     ['Hm G', 'German H is not a chord'],
-    ['C, G', 'chord with glued punctuation'],
+    ['C; G', 'chord with glued punctuation'],
     ['[C] [G]', 'ChordPro brackets'],
     // Markers alone carry nothing to convert.
     ['| | |', 'markers only'],

@@ -17,7 +17,7 @@ The app SHALL provide a text input for the sheet and a read-only, monospaced out
 
 ### Requirement: Key selection
 
-The app SHALL show the key in use and let the user choose any of 12 roots in major or minor, or `Auto`. `Auto` SHALL be the default and SHALL use key detection. A manual choice SHALL stay in effect until the user selects `Auto` again.
+The app SHALL show the key in use and let the user choose any of 12 roots in major or minor, or `Auto`. `Auto` SHALL be the default and SHALL use key detection, including its key regions. A manual choice SHALL convert the whole sheet in the chosen key, ignoring detected key changes, and SHALL stay in effect until the user selects `Auto` again.
 
 #### Scenario: Auto key shown
 
@@ -33,6 +33,16 @@ The app SHALL show the key in use and let the user choose any of 12 roots in maj
 
 - **WHEN** the user picks D major
 - **THEN** the output is re-rendered in D major and stays so when the input is edited
+
+#### Scenario: Key change shown
+
+- **WHEN** a sheet whose last chorus repeats a tone higher is pasted with the key set to `Auto`
+- **THEN** the key display names both keys and where the change happens, and the last chorus shows the same numbers as the earlier ones
+
+#### Scenario: Manual key ignores key changes
+
+- **WHEN** the user picks a key for that sheet
+- **THEN** every chord line is numbered in the picked key and no key change is displayed
 
 #### Scenario: No chords found
 

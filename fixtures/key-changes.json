@@ -1,0 +1,302 @@
+{
+  "about": [
+    "Key change table for detectKey: every sheet lists the exact key regions expected.",
+    "`regions` rows are [startLine, key, reason]; the first row is always line 0 with reason `start`.",
+    "Entries with a single region are the negatives: nothing in them may read as a key change.",
+    "`guessed` is checked only where it is listed."
+  ],
+  "entries": [
+    {
+      "id": "last-chorus-up-a-tone",
+      "regions": [
+        [0, "G", "start"],
+        [16, "A", "repeat"]
+      ],
+      "sheet": [
+        "[Verse]",
+        "G D Em C",
+        "G D C G",
+        "",
+        "[Chorus]",
+        "C G D Em",
+        "C G D D",
+        "",
+        "[Verse]",
+        "G D Em C",
+        "G D C G",
+        "",
+        "[Chorus]",
+        "C G D Em",
+        "C G D D",
+        "",
+        "[Chorus]",
+        "D A E F#m",
+        "D A E E"
+      ]
+    },
+    {
+      "id": "last-chorus-up-a-semitone-no-headers",
+      "regions": [
+        [0, "C", "start"],
+        [9, "Db", "repeat"]
+      ],
+      "sheet": [
+        "C G Am F",
+        "C G F C",
+        "",
+        "F G C Am",
+        "F G C C",
+        "",
+        "F G C Am",
+        "F G C C",
+        "",
+        "Gb Ab Db Bbm",
+        "Gb Ab Db Db"
+      ]
+    },
+    {
+      "id": "verse-and-chorus-both-repeat-in-the-new-key",
+      "regions": [
+        [0, "D", "start"],
+        [8, "E", "repeat"]
+      ],
+      "sheet": [
+        "[Verse 1]",
+        "D A Bm G",
+        "D A G D",
+        "",
+        "[Chorus]",
+        "G D A Bm",
+        "G A D D",
+        "",
+        "[Verse 2]",
+        "E B C#m A",
+        "E B A E",
+        "",
+        "[Chorus]",
+        "A E B C#m",
+        "A B E E"
+      ]
+    },
+    {
+      "id": "up-and-back-down",
+      "regions": [
+        [0, "A", "start"],
+        [4, "B", "repeat"],
+        [8, "A", "repeat"]
+      ],
+      "sheet": [
+        "[Verse]",
+        "A D E A",
+        "A D E E",
+        "",
+        "[Solo]",
+        "B E F# B",
+        "B E F# F#",
+        "",
+        "[Verse]",
+        "A D E A",
+        "A D E E"
+      ]
+    },
+    {
+      "id": "modulated-chorus-with-lyrics-and-an-outro-tag",
+      "regions": [
+        [0, "E", "start"],
+        [12, "F#", "repeat"]
+      ],
+      "sheet": [
+        "[Verse]",
+        "E          B          C#m        A",
+        "Placeholder words go here and here",
+        "E          B          A",
+        "More placeholder words",
+        "",
+        "[Chorus]",
+        "A          E          B",
+        "Sing the placeholder chorus",
+        "A          E          B          E",
+        "One more made-up line",
+        "",
+        "[Chorus]",
+        "B          F#         C#",
+        "Sing the placeholder chorus",
+        "B          F#         C#         F#",
+        "One more made-up line",
+        "B          C#         F#",
+        "A tag line of filler"
+      ]
+    },
+    {
+      "id": "minor-key-up-a-tone",
+      "regions": [
+        [0, "Am", "start"],
+        [8, "Bm", "repeat"]
+      ],
+      "sheet": [
+        "[Verse]",
+        "Am F G Am",
+        "Am F E7 Am",
+        "",
+        "[Chorus]",
+        "F G Am Am",
+        "Dm E7 Am Am",
+        "",
+        "[Chorus]",
+        "G A Bm Bm",
+        "Em F#7 Bm Bm"
+      ]
+    },
+    {
+      "id": "explicit-key-lines",
+      "regions": [
+        [0, "C", "start"],
+        [5, "D", "hint"]
+      ],
+      "guessed": false,
+      "sheet": [
+        "Key: C",
+        "",
+        "[Verse]",
+        "C F G C",
+        "",
+        "Key: D",
+        "[Bridge]",
+        "Bm G A D",
+        "Em A D D"
+      ]
+    },
+    {
+      "id": "explicit-key-change-wording",
+      "regions": [
+        [0, "G", "start"],
+        [6, "A", "hint"]
+      ],
+      "sheet": [
+        "[Verse]",
+        "G C D G",
+        "",
+        "[Chorus]",
+        "C D G Em",
+        "",
+        "Key change: A",
+        "[Outro]",
+        "A D E A"
+      ]
+    },
+    {
+      "id": "hint-then-transposed-repeat",
+      "regions": [
+        [0, "F", "start"],
+        [9, "G", "repeat"]
+      ],
+      "guessed": false,
+      "sheet": [
+        "Key of F",
+        "",
+        "[Verse]",
+        "F Bb C F",
+        "",
+        "[Chorus]",
+        "Bb C F Dm",
+        "Bb C F F",
+        "",
+        "[Chorus]",
+        "C D G Em",
+        "C D G G"
+      ]
+    },
+    {
+      "id": "hint-is-the-sounding-key-with-a-capo",
+      "note": "Chords are written as shapes; the stated key is two semitones above them.",
+      "regions": [[0, "G", "start"]],
+      "guessed": true,
+      "sheet": ["Capo: 2", "Key: A", "", "G C D G", "G C D G", "Em C D G"]
+    },
+    {
+      "id": "hint-agrees-with-the-shapes-despite-a-capo",
+      "regions": [[0, "G", "start"]],
+      "guessed": false,
+      "sheet": ["Capo 3", "Key: G", "", "G C D G", "G C D G", "Em C D G"]
+    },
+
+    {
+      "id": "no-change-bridge-with-borrowed-chords",
+      "regions": [[0, "C", "start"]],
+      "sheet": [
+        "[Verse]",
+        "C G Am F",
+        "C G F C",
+        "",
+        "[Bridge]",
+        "Ab Bb C C",
+        "Ab Bb G G",
+        "",
+        "[Verse]",
+        "C G Am F",
+        "C G F C"
+      ]
+    },
+    {
+      "id": "no-change-chorus-is-a-diatonic-transposition",
+      "note": "Bm G D is Em C G a fifth up, but all six chords live in G major.",
+      "regions": [[0, "G", "start"]],
+      "sheet": [
+        "[Verse]",
+        "Em C G Em",
+        "Em C G G",
+        "",
+        "[Chorus]",
+        "Bm G D Bm",
+        "Bm G D D",
+        "",
+        "[Outro]",
+        "C D G G"
+      ]
+    },
+    {
+      "id": "no-change-two-chord-section-moved-a-fourth",
+      "note": "Too little material to call a repeat.",
+      "regions": [[0, "G", "start"]],
+      "sheet": ["[Verse]", "G C G C", "G C G D", "", "[Bridge]", "C F C F", "", "[Verse]", "G C G C", "G C G D", "G"]
+    },
+    {
+      "id": "no-change-relative-minor-bridge",
+      "regions": [[0, "C", "start"]],
+      "sheet": [
+        "[Verse]",
+        "C F G C",
+        "C F G C",
+        "",
+        "[Bridge]",
+        "Am Dm E7 Am",
+        "Am Dm G G",
+        "",
+        "[Verse]",
+        "C F G C",
+        "C F G C"
+      ]
+    },
+    {
+      "id": "no-change-jazz-tune-with-a-passing-ii-V-I",
+      "regions": [[0, "Cm", "start"]],
+      "sheet": ["Cm7 Cm7 Fm7 Fm7", "Dm7b5 G7 Cm7 Cm7", "Ebm7 Ab7 Dbmaj7 Dbmaj7", "Dm7b5 G7 Cm7 G7"]
+    },
+    {
+      "id": "no-change-secondary-dominants",
+      "regions": [[0, "G", "start"]],
+      "sheet": ["[Verse]", "G B7 Em G7", "C A7 D7 G", "", "[Chorus]", "C G D G", "C G D G"]
+    },
+    {
+      "id": "no-change-exact-repeats",
+      "regions": [[0, "D", "start"]],
+      "sheet": ["[Verse]", "D G A D", "", "[Chorus]", "G A D Bm", "", "[Verse]", "D G A D", "", "[Chorus]", "G A D Bm", "G A D D"]
+    },
+    {
+      "id": "no-change-unbroken-sheet",
+      "note": "Known limit: with no headers and no blank lines there are no sections to compare.",
+      "regions": [[0, "C", "start"]],
+      "sheet": ["C F G C", "C F G C", "C F G C", "D G A D"]
+    }
+  ]
+}

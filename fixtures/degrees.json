@@ -1,0 +1,168 @@
+{
+  "about": [
+    "Degree table for toDegree: every spelled root (and bass) in all 12 keys, Roman style.",
+    "Derived from the Degree calculation rule in the chord-conversion spec, independently of the code:",
+    "a note on the major scale of the tonic is the plain degree whatever its spelling; off the scale,",
+    "a sharp spelling is # of the degree below, a flat spelling is b of the degree above, and a",
+    "natural spelling is one of bII, bIII, #IV, bVI, bVII.",
+    "`tonic` is the pitch class (C = 0). The same row serves the major and the minor key on that tonic."
+  ],
+  "keys": [
+    {
+      "tonic": 0,
+      "name": "C",
+      "degrees": {
+        "C": "I", "C#": "#I", "Cb": "VII",
+        "D": "II", "D#": "#II", "Db": "bII",
+        "E": "III", "E#": "IV", "Eb": "bIII",
+        "F": "IV", "F#": "#IV", "Fb": "III",
+        "G": "V", "G#": "#V", "Gb": "bV",
+        "A": "VI", "A#": "#VI", "Ab": "bVI",
+        "B": "VII", "B#": "I", "Bb": "bVII"
+      }
+    },
+    {
+      "tonic": 1,
+      "name": "Db",
+      "degrees": {
+        "C": "VII", "C#": "I", "Cb": "bVII",
+        "D": "bII", "D#": "II", "Db": "I",
+        "E": "bIII", "E#": "III", "Eb": "II",
+        "F": "III", "F#": "IV", "Fb": "bIII",
+        "G": "#IV", "G#": "V", "Gb": "IV",
+        "A": "bVI", "A#": "VI", "Ab": "V",
+        "B": "bVII", "B#": "VII", "Bb": "VI"
+      }
+    },
+    {
+      "tonic": 2,
+      "name": "D",
+      "degrees": {
+        "C": "bVII", "C#": "VII", "Cb": "VI",
+        "D": "I", "D#": "#I", "Db": "VII",
+        "E": "II", "E#": "#II", "Eb": "bII",
+        "F": "bIII", "F#": "III", "Fb": "II",
+        "G": "IV", "G#": "#IV", "Gb": "III",
+        "A": "V", "A#": "#V", "Ab": "bV",
+        "B": "VI", "B#": "#VI", "Bb": "bVI"
+      }
+    },
+    {
+      "tonic": 3,
+      "name": "Eb",
+      "degrees": {
+        "C": "VI", "C#": "#VI", "Cb": "bVI",
+        "D": "VII", "D#": "I", "Db": "bVII",
+        "E": "bII", "E#": "II", "Eb": "I",
+        "F": "II", "F#": "#II", "Fb": "bII",
+        "G": "III", "G#": "IV", "Gb": "bIII",
+        "A": "#IV", "A#": "V", "Ab": "IV",
+        "B": "bVI", "B#": "VI", "Bb": "V"
+      }
+    },
+    {
+      "tonic": 4,
+      "name": "E",
+      "degrees": {
+        "C": "bVI", "C#": "VI", "Cb": "V",
+        "D": "bVII", "D#": "VII", "Db": "VI",
+        "E": "I", "E#": "#I", "Eb": "VII",
+        "F": "bII", "F#": "II", "Fb": "I",
+        "G": "bIII", "G#": "III", "Gb": "II",
+        "A": "IV", "A#": "#IV", "Ab": "III",
+        "B": "V", "B#": "#V", "Bb": "bV"
+      }
+    },
+    {
+      "tonic": 5,
+      "name": "F",
+      "degrees": {
+        "C": "V", "C#": "#V", "Cb": "bV",
+        "D": "VI", "D#": "#VI", "Db": "bVI",
+        "E": "VII", "E#": "I", "Eb": "bVII",
+        "F": "I", "F#": "#I", "Fb": "VII",
+        "G": "II", "G#": "#II", "Gb": "bII",
+        "A": "III", "A#": "IV", "Ab": "bIII",
+        "B": "#IV", "B#": "V", "Bb": "IV"
+      }
+    },
+    {
+      "tonic": 6,
+      "name": "F#",
+      "degrees": {
+        "C": "#IV", "C#": "V", "Cb": "IV",
+        "D": "bVI", "D#": "VI", "Db": "V",
+        "E": "bVII", "E#": "VII", "Eb": "VI",
+        "F": "VII", "F#": "I", "Fb": "bVII",
+        "G": "bII", "G#": "II", "Gb": "I",
+        "A": "bIII", "A#": "III", "Ab": "II",
+        "B": "IV", "B#": "#IV", "Bb": "III"
+      }
+    },
+    {
+      "tonic": 7,
+      "name": "G",
+      "degrees": {
+        "C": "IV", "C#": "#IV", "Cb": "III",
+        "D": "V", "D#": "#V", "Db": "bV",
+        "E": "VI", "E#": "#VI", "Eb": "bVI",
+        "F": "bVII", "F#": "VII", "Fb": "VI",
+        "G": "I", "G#": "#I", "Gb": "VII",
+        "A": "II", "A#": "#II", "Ab": "bII",
+        "B": "III", "B#": "IV", "Bb": "bIII"
+      }
+    },
+    {
+      "tonic": 8,
+      "name": "Ab",
+      "degrees": {
+        "C": "III", "C#": "IV", "Cb": "bIII",
+        "D": "#IV", "D#": "V", "Db": "IV",
+        "E": "bVI", "E#": "VI", "Eb": "V",
+        "F": "VI", "F#": "#VI", "Fb": "bVI",
+        "G": "VII", "G#": "I", "Gb": "bVII",
+        "A": "bII", "A#": "II", "Ab": "I",
+        "B": "bIII", "B#": "III", "Bb": "II"
+      }
+    },
+    {
+      "tonic": 9,
+      "name": "A",
+      "degrees": {
+        "C": "bIII", "C#": "III", "Cb": "II",
+        "D": "IV", "D#": "#IV", "Db": "III",
+        "E": "V", "E#": "#V", "Eb": "bV",
+        "F": "bVI", "F#": "VI", "Fb": "V",
+        "G": "bVII", "G#": "VII", "Gb": "VI",
+        "A": "I", "A#": "#I", "Ab": "VII",
+        "B": "II", "B#": "#II", "Bb": "bII"
+      }
+    },
+    {
+      "tonic": 10,
+      "name": "Bb",
+      "degrees": {
+        "C": "II", "C#": "#II", "Cb": "bII",
+        "D": "III", "D#": "IV", "Db": "bIII",
+        "E": "#IV", "E#": "V", "Eb": "IV",
+        "F": "V", "F#": "#V", "Fb": "bV",
+        "G": "VI", "G#": "#VI", "Gb": "bVI",
+        "A": "VII", "A#": "I", "Ab": "bVII",
+        "B": "bII", "B#": "II", "Bb": "I"
+      }
+    },
+    {
+      "tonic": 11,
+      "name": "B",
+      "degrees": {
+        "C": "bII", "C#": "II", "Cb": "I",
+        "D": "bIII", "D#": "III", "Db": "II",
+        "E": "IV", "E#": "#IV", "Eb": "III",
+        "F": "#IV", "F#": "V", "Fb": "IV",
+        "G": "bVI", "G#": "VI", "Gb": "V",
+        "A": "bVII", "A#": "VII", "Ab": "VI",
+        "B": "I", "B#": "#I", "Bb": "VII"
+      }
+    }
+  ]
+}

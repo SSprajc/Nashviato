@@ -9,6 +9,7 @@ Getting a song from a letter-chord sheet into numbers before a rehearsal is manu
 - New web app (TypeScript, React, Vite), deployed as a static, installable, offline-capable site.
 - Paste a chord-over-lyrics sheet; output keeps the layout with numbers in place of chords.
 - Key is auto-detected, shown, and overridable (12 roots, major or minor).
+- Key changes stated in the sheet, or made by repeating a section at another pitch, are detected and numbered in the new key (ADR 0008).
 - Notation: uppercase Roman with the original suffix (`Am` → `VIm`) by default; Arabic (`6m`) as a setting.
 - Copy the result; last input is restored on reload.
 
@@ -16,8 +17,8 @@ Getting a song from a letter-chord sheet into numbers before a rehearsal is manu
 
 ### New Capabilities
 
-- `chord-conversion`: chord grammar, line classification, degree calculation, slash chords, notation style, alignment.
-- `key-detection`: explicit hints, scored detection, confidence, corpus accuracy.
+- `chord-conversion`: chord grammar, line classification, degree calculation, slash chords, key regions, notation style, alignment.
+- `key-detection`: explicit hints, capo handling, scored detection, confidence, key regions, corpus accuracy.
 - `converter-ui`: the single screen, key picker, settings, copy, persistence, offline.
 
 ### Modified Capabilities
@@ -31,7 +32,7 @@ None.
 - Any AI step (ADR 0002).
 - Song library, setlists, sync, accounts.
 - ChordPro inline input, tabs, PDF or image import.
-- German `H` notation, per-section keys, modulation detection, capo helper.
+- German `H` notation, capo helper, manual per-section keys, and key changes into new material or inside a section (ADR 0008).
 - True Nashville chart layout (bars, rhythm marks).
 - Editing individual output chords; analytics; monetisation.
 

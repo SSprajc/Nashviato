@@ -1,0 +1,420 @@
+{
+  "about": [
+    "Key corpus for detectKey: chord progressions with a labelled home key.",
+    "No entry carries a key hint; detection has to work from the chords alone.",
+    "`key` is the tonic with an `m` for minor. A relative major/minor confusion counts as wrong.",
+    "`anyMode` entries have no third on the tonic chord, so only the tonic is checked.",
+    "`hard` marks progressions that are ambiguous by nature; they are allowed to be the misses.",
+    "Labels come from harmonic analysis of the progression, not from a recording."
+  ],
+  "entries": [
+    {
+      "id": "spec-plain-major",
+      "key": "G",
+      "sheet": ["G D Em C G D C G"]
+    },
+    {
+      "id": "spec-relative-minor-first-and-last",
+      "key": "Em",
+      "sheet": ["Em C G D Em C D Em"]
+    },
+    {
+      "id": "spec-cadence-decides",
+      "key": "Am",
+      "sheet": ["Am Dm E7 Am"]
+    },
+    {
+      "id": "spec-tie-prefers-major",
+      "key": "C",
+      "sheet": ["C Am F G", "C Am F G", "C Am F G", "C Am F G"]
+    },
+    {
+      "id": "axis-I-V-vi-IV-in-G",
+      "key": "G",
+      "sheet": ["[Verse]", "G D Em C", "G D Em C", "", "[Chorus]", "G D Em C", "G D C G"]
+    },
+    {
+      "id": "axis-in-E-flat",
+      "key": "Eb",
+      "sheet": ["Eb Bb Cm Ab", "Eb Bb Cm Ab", "Eb Bb Ab Eb"]
+    },
+    {
+      "id": "axis-in-B-flat",
+      "key": "Bb",
+      "sheet": ["Bb F Gm Eb", "Bb F Gm Eb", "Bb F Eb Bb"]
+    },
+    {
+      "id": "axis-in-D-flat",
+      "key": "Db",
+      "sheet": ["Db Ab Bbm Gb", "Db Ab Bbm Gb", "Db Ab Gb Db"]
+    },
+    {
+      "id": "axis-in-E",
+      "key": "E",
+      "sheet": ["E B C#m A", "E B C#m A", "E B A E"]
+    },
+    {
+      "id": "axis-in-B",
+      "key": "B",
+      "sheet": ["B F# G#m E", "B F# G#m E", "B F# E B"]
+    },
+    {
+      "id": "axis-in-F-sharp",
+      "key": "F#",
+      "sheet": ["F# C# D#m B", "F# C# D#m B", "F# C# B F#"]
+    },
+    {
+      "id": "axis-in-G-flat-spelled-with-flats",
+      "key": "Gb",
+      "sheet": ["Gb Db Ebm Cb", "Gb Db Ebm Cb", "Gb Db Cb Gb"]
+    },
+    {
+      "id": "sharps-only-site-spelling-of-B-flat",
+      "key": "Bb",
+      "note": "Some sites spell every black key as a sharp.",
+      "sheet": ["A# F Gm D#", "A# F Gm D#", "A# F D# A#"]
+    },
+    {
+      "id": "fifties-I-vi-IV-V-in-G",
+      "key": "G",
+      "sheet": ["G Em C D", "G Em C D", "G Em C D", "G Em C D G"]
+    },
+    {
+      "id": "I-vi-ii-V-in-F",
+      "key": "F",
+      "sheet": ["F Dm Gm C7", "F Dm Gm C7", "F Dm Gm C7", "F"]
+    },
+    {
+      "id": "three-chord-in-D",
+      "key": "D",
+      "sheet": ["D G A D", "D G A A", "D G A D", "G A D D"]
+    },
+    {
+      "id": "three-chord-country-in-G-with-V7",
+      "key": "G",
+      "sheet": ["G G C G", "G G D7 D7", "G G C G", "G D7 G G"]
+    },
+    {
+      "id": "three-chord-in-E-ending-on-the-turnaround",
+      "key": "E",
+      "note": "Ends on V.",
+      "sheet": ["E A E B7", "E A E B7", "E A E B7"]
+    },
+    {
+      "id": "I-IV-V-IV-loop-in-C",
+      "key": "C",
+      "note": "Loop that never rests on I for long and ends on V.",
+      "sheet": ["C F G F", "C F G F", "C F G F", "C F G"]
+    },
+    {
+      "id": "two-chord-vamp-in-G",
+      "key": "G",
+      "hard": true,
+      "sheet": ["G C G C", "G C G C"]
+    },
+    {
+      "id": "single-chord",
+      "key": "E",
+      "sheet": ["E"]
+    },
+    {
+      "id": "single-minor-chord",
+      "key": "Am",
+      "sheet": ["Am"]
+    },
+    {
+      "id": "twelve-bar-blues-in-A",
+      "key": "A",
+      "note": "Every chord is a dominant seventh.",
+      "sheet": ["A7 A7 A7 A7", "D7 D7 A7 A7", "E7 D7 A7 E7"]
+    },
+    {
+      "id": "twelve-bar-blues-in-E-quick-change",
+      "key": "E",
+      "sheet": ["E7 A7 E7 E7", "A7 A7 E7 E7", "B7 A7 E7 B7"]
+    },
+    {
+      "id": "twelve-bar-blues-in-B-flat-jazz",
+      "key": "Bb",
+      "sheet": ["Bb7 Eb7 Bb7 Bb7", "Eb7 Edim7 Bb7 G7", "Cm7 F7 Bb7 F7"]
+    },
+    {
+      "id": "minor-blues-in-A",
+      "key": "Am",
+      "sheet": ["Am Am Am Am", "Dm Dm Am Am", "F7 E7 Am E7"]
+    },
+    {
+      "id": "canon-in-D",
+      "key": "D",
+      "sheet": ["D A Bm F#m G D G A", "D A Bm F#m G D G A"]
+    },
+    {
+      "id": "I-V-vi-iii-IV-I-IV-V-in-C",
+      "key": "C",
+      "sheet": ["C G Am Em F C F G", "C G Am Em F C F G C"]
+    },
+    {
+      "id": "hymn-like-in-C",
+      "key": "C",
+      "sheet": ["[Verse]", "C G Am F", "C G F C", "", "[Chorus]", "Am G F C", "C G F C"]
+    },
+    {
+      "id": "three-line-folk-in-G",
+      "key": "G",
+      "sheet": ["G D Am Am", "G D C C", "G D Am Am", "G D C C"]
+    },
+    {
+      "id": "I-vi-IV-V-in-A-with-doubled-bars",
+      "key": "A",
+      "sheet": ["A A F#m F#m", "D E A A", "A A F#m F#m", "D E A A"]
+    },
+    {
+      "id": "starts-on-IV-in-G",
+      "key": "G",
+      "note": "First chord is IV.",
+      "sheet": ["C D G Em", "C D G G", "C D G Em", "C D G G"]
+    },
+    {
+      "id": "verse-on-vi-chorus-on-I-in-C",
+      "key": "C",
+      "note": "Verse loops from the vi chord; the chorus settles the key.",
+      "sheet": [
+        "[Verse]",
+        "Am F C G",
+        "Am F C G",
+        "",
+        "[Chorus]",
+        "C G Am F",
+        "C G F C",
+        "",
+        "[Verse]",
+        "Am F C G",
+        "Am F C G",
+        "",
+        "[Chorus]",
+        "C G Am F",
+        "C G F C"
+      ]
+    },
+    {
+      "id": "vi-IV-I-V-loop-ending-on-the-minor",
+      "key": "Am",
+      "hard": true,
+      "note": "The same loop as the previous verse with nothing but its first and last chord to go on.",
+      "sheet": ["Am F C G", "Am F C G", "Am F C G", "Am"]
+    },
+    {
+      "id": "i-VI-III-VII-in-E-minor",
+      "key": "Em",
+      "sheet": ["Em C G D", "Em C G D", "Em C G D", "Em C G D Em"]
+    },
+    {
+      "id": "i-VI-III-VII-in-C-minor",
+      "key": "Cm",
+      "sheet": ["Cm Ab Eb Bb", "Cm Ab Eb Bb", "Cm Ab Eb Bb Cm"]
+    },
+    {
+      "id": "i-VI-III-VII-in-C-sharp-minor",
+      "key": "C#m",
+      "sheet": ["C#m A E B", "C#m A E B", "C#m A E B C#m"]
+    },
+    {
+      "id": "i-VI-III-VII-in-B-flat-minor",
+      "key": "Bbm",
+      "sheet": ["Bbm Gb Db Ab", "Bbm Gb Db Ab", "Bbm Gb Db Ab Bbm"]
+    },
+    {
+      "id": "aeolian-vamp-in-A-minor",
+      "key": "Am",
+      "sheet": ["Am G F G", "Am G F G", "Am G F G", "Am"]
+    },
+    {
+      "id": "andalusian-cadence",
+      "key": "Am",
+      "sheet": ["Am G F E", "Am G F E", "Am G F E", "Am G F E"]
+    },
+    {
+      "id": "minor-with-harmonic-V-in-D-minor",
+      "key": "Dm",
+      "sheet": ["Dm Gm A7 Dm", "Dm C Bb A7", "Dm Gm A7 Dm"]
+    },
+    {
+      "id": "minor-with-harmonic-V-in-F-sharp-minor",
+      "key": "F#m",
+      "sheet": ["F#m Bm C#7 F#m", "F#m D E C#7", "F#m Bm C#7 F#m"]
+    },
+    {
+      "id": "minor-with-harmonic-V-in-F-minor",
+      "key": "Fm",
+      "sheet": ["Fm Bbm C7 Fm", "Fm Db Eb C7", "Fm Bbm C7 Fm"]
+    },
+    {
+      "id": "minor-with-major-IV-and-major-V",
+      "key": "Am",
+      "note": "Dorian IV and harmonic V in the same tune.",
+      "sheet": ["Am C D F", "Am C E E", "Am C D F", "Am E Am E"]
+    },
+    {
+      "id": "minor-circle-with-major-V-in-B-minor",
+      "key": "Bm",
+      "sheet": ["Bm F# A E", "G D Em F#", "Bm F# A E", "G D Em F#"]
+    },
+    {
+      "id": "descending-bass-in-A-minor",
+      "key": "Am",
+      "sheet": ["Am Am/G F E7", "Am Am/G F E7", "Am"]
+    },
+    {
+      "id": "dorian-vamp",
+      "key": "Am",
+      "hard": true,
+      "note": "i7 to IV7 with nothing else; reads as ii-V of G on paper.",
+      "sheet": ["Am7 D7 Am7 D7", "Am7 D7 Am7 D7"]
+    },
+    {
+      "id": "dorian-four-chord-loop",
+      "key": "Em",
+      "hard": true,
+      "note": "i7, bIII, bVII and a major IV; the IV pulls the chord count towards D major.",
+      "sheet": [
+        "[Verse]",
+        "Em7 G Dsus4 A7sus4",
+        "Em7 G Dsus4 A7sus4",
+        "",
+        "[Chorus]",
+        "C D Em Em",
+        "C D Em Em"
+      ]
+    },
+    {
+      "id": "mixolydian-I-bVII-IV-in-A",
+      "key": "A",
+      "hard": true,
+      "sheet": ["A G D A", "A G D A", "A G D A"]
+    },
+    {
+      "id": "mixolydian-I-bVII-IV-in-C",
+      "key": "C",
+      "hard": true,
+      "sheet": ["C Bb F C", "C Bb F C", "C Bb F C"]
+    },
+    {
+      "id": "mixolydian-three-chord-loop-in-D",
+      "key": "D",
+      "hard": true,
+      "note": "D C G with no rest on D: the classic argument between D and G.",
+      "sheet": ["D C G G", "D C G G", "D C G G", "D C G G"]
+    },
+    {
+      "id": "secondary-dominants-in-G",
+      "key": "G",
+      "sheet": ["G B7 Em G7", "C A7 D7 G"]
+    },
+    {
+      "id": "ragtime-circle-in-C",
+      "key": "C",
+      "sheet": ["C E7 A7 D7 G7 C", "C E7 A7 D7 G7 C"]
+    },
+    {
+      "id": "passing-diminished-in-C",
+      "key": "C",
+      "sheet": ["C C#dim Dm G7", "C C#dim Dm G7", "C"]
+    },
+    {
+      "id": "slash-chord-walk-down-in-C",
+      "key": "C",
+      "sheet": ["C G/B Am Am/G", "F C/E Dm G", "C G/B Am Am/G", "F C/E Dm G C"]
+    },
+    {
+      "id": "sus-and-slash-chords-in-D",
+      "key": "D",
+      "sheet": ["D Dsus4 D A/C#", "Bm7 G2 Asus4 A", "D Dsus4 D A/C#", "Bm7 G2 Asus4 A D"]
+    },
+    {
+      "id": "added-tone-loop-in-G",
+      "key": "G",
+      "sheet": ["G D/F# Em7 Cadd9", "G D/F# Em7 Cadd9", "G D/F# Em7 Cadd9 G"]
+    },
+    {
+      "id": "borrowed-iv-and-bVII-in-C",
+      "key": "C",
+      "sheet": ["C F Fm C", "C Bb F C", "C F Fm C", "Am G F G C"]
+    },
+    {
+      "id": "jazz-ii-V-I-in-C",
+      "key": "C",
+      "note": "First chord is ii.",
+      "sheet": ["Dm7 G7 Cmaj7 Cmaj7", "Dm7 G7 Cmaj7 A7", "Dm7 G7 Em7 A7", "Dm7 G7 Cmaj7 Cmaj7"]
+    },
+    {
+      "id": "jazz-ii-V-I-in-E-flat",
+      "key": "Eb",
+      "sheet": ["Fm7 Bb7 Ebmaj7 Cm7", "Fm7 Bb7 Ebmaj7 Ebmaj7"]
+    },
+    {
+      "id": "jazz-major-seventh-vamp",
+      "key": "C",
+      "hard": true,
+      "sheet": ["Cmaj7 Fmaj7 Cmaj7 Fmaj7", "Cmaj7 Fmaj7 Cmaj7 Fmaj7"]
+    },
+    {
+      "id": "descending-sevenths-in-C",
+      "key": "C",
+      "sheet": ["Fmaj7 Em7 Dm7 Cmaj7", "Fmaj7 Em7 Dm7 Cmaj7"]
+    },
+    {
+      "id": "jazz-minor-ii-V-i-in-C-minor",
+      "key": "Cm",
+      "sheet": ["Dm7b5 G7 Cm7 Cm7", "Fm7 Bb7 Ebmaj7 Abmaj7", "Dm7b5 G7 Cm7 Cm7"]
+    },
+    {
+      "id": "jazz-standard-major-and-relative-minor-cadences",
+      "key": "Em",
+      "note": "ii-V-I in G followed by ii-V-i in E minor; the tune rests on the minor.",
+      "sheet": ["Am7 D7 Gmaj7 Cmaj7", "F#m7b5 B7 Em Em", "Am7 D7 Gmaj7 Cmaj7", "F#m7b5 B7 Em Em"]
+    },
+    {
+      "id": "jazz-minor-with-a-ii-V-I-a-semitone-up",
+      "key": "Cm",
+      "note": "Contains a full ii-V-I in D flat; the home key is still C minor.",
+      "sheet": ["Cm7 Cm7 Fm7 Fm7", "Dm7b5 G7 Cm7 Cm7", "Ebm7 Ab7 Dbmaj7 Dbmaj7", "Dm7b5 G7 Cm7 G7"]
+    },
+    {
+      "id": "rhythm-changes-A-section",
+      "key": "Bb",
+      "sheet": ["Bb Gm7 Cm7 F7", "Dm7 G7 Cm7 F7", "Bb Bb7 Eb Ebm", "Bb F7 Bb"]
+    },
+    {
+      "id": "power-chord-riff-in-E",
+      "key": "Em",
+      "anyMode": true,
+      "sheet": ["E5 G5 A5 E5", "E5 G5 Bb5 A5", "E5 G5 A5 G5 E5"]
+    },
+    {
+      "id": "power-chord-I-IV-V-in-A",
+      "key": "A",
+      "anyMode": true,
+      "sheet": ["A5 A5 D5 D5", "A5 A5 E5 E5", "A5 D5 E5 A5"]
+    },
+    {
+      "id": "bar-notation-in-G",
+      "key": "G",
+      "note": "Same content as a plain line, written with bars and repeats.",
+      "sheet": ["| G / / / | D / / / | Em / / / | C / / / |", "|: G  D | Em  C :| x2", "| G |"]
+    },
+    {
+      "id": "chords-over-lyrics-in-D",
+      "key": "D",
+      "sheet": [
+        "D              A",
+        "Placeholder words go here",
+        "Bm             G",
+        "More placeholder words",
+        "D              A",
+        "Placeholder words go here",
+        "G        A     D",
+        "And the last made-up line"
+      ]
+    }
+  ]
+}

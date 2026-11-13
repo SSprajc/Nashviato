@@ -31,7 +31,7 @@ Done means: `pnpm typecheck && pnpm lint && pnpm test` all pass.
 ```
 src/core/     conversion logic: pure TypeScript, no React, no DOM, no I/O
 src/ui/       React components; calls core, holds no music logic
-fixtures/     golden sheets (*.input.txt / *.expected.txt) and key corpus
+fixtures/     golden sheets (*.input.txt / *.expected.txt) and JSON tables (chords, lines, degrees, keys)
 openspec/     specs and changes (see Workflow)
 docs/adr/     decisions and their reasons
 ```
@@ -42,7 +42,8 @@ docs/adr/     decisions and their reasons
 - Chord suffixes are opaque strings: parse root and bass, copy the rest verbatim. Never normalise or "correct" a chord.
 - Lyric and other non-chord lines pass through byte-for-byte.
 - Test-first in `src/core`. Every `#### Scenario` in a spec has a test whose name contains the scenario name.
-- A bug found in real use becomes a golden fixture before it is fixed.
+- A bug found in real use becomes a golden fixture, or a row in the matching `fixtures/*.json` table, before it is fixed.
+- Key detection weights live in `KEY_WEIGHTS` only. Change one together with a corpus run, and never grow the known-miss list in `keyCorpus.test.ts` to make a change pass.
 - Fixtures use real chord progressions with placeholder lyrics. Never commit lyrics copied from a chord site.
 - English for code, comments and docs.
 

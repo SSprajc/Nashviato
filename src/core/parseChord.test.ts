@@ -25,6 +25,28 @@ describe('parseChord: spec scenarios (Chord token grammar)', () => {
   it.each(['Dad', 'Be', 'Hm', 'Hello'])('Ordinary words are not chords: %s', (token) => {
     expect(parseChord(token)).toBeNull();
   });
+
+  it('Symbol qualities parse', () => {
+    expect(parseChord('C°7')).toEqual(chord(note('C'), '°7'));
+    expect(parseChord('Bø7')).toEqual(chord(note('B'), 'ø7'));
+    expect(parseChord('FΔ7')).toEqual(chord(note('F'), 'Δ7'));
+    expect(parseChord('A-7')).toEqual(chord(note('A'), '-7'));
+  });
+
+  it('Alterations in parentheses parse', () => {
+    expect(parseChord('G7(b9,#11)/B')).toEqual(chord(note('G'), '7(b9,#11)', note('B')));
+  });
+
+  it('Six-nine is a suffix', () => {
+    expect(parseChord('C6/9/E')).toEqual(chord(note('C'), '6/9', note('E')));
+  });
+
+  it.each(['Emma', 'Go', 'Do', 'C-'])(
+    'Loose spellings that make words are rejected: %s',
+    (token) => {
+      expect(parseChord(token)).toBeNull();
+    },
+  );
 });
 
 describe('parseChord: accept table', () => {
