@@ -1,0 +1,29 @@
+Capo 2
+
+[Intro]
+VIm   III7   V   II   IV   I   IIm   III7   x2
+
+[Verse]
+VIm                         III7
+  Placeholder words go drifting, down along the line
+V                      II
+  More made-up words to carry the second line
+IV                          I
+  A third line of filler, standing in for a song
+IIm
+   One chord alone above this line
+III7
+  And one more to end the verse
+
+[Chorus]
+IV                          I
+  Sing the placeholder chorus here
+       III7                                         VIm
+Such a made-up phrase (such a made-up phrase), such a made-up line
+    IIm                                       III7
+Any filler will do (any filler will do), to pad it out
+
+[Outro Solo]
+VIm   III7   V   II   IV   I   IIm   III7   x3
+(fade out)
+X
