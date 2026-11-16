@@ -1,22 +1,30 @@
 import { useState } from 'react';
 import { convert } from '../core/convert';
-import type { Key } from '../core/types';
-import { KeyPicker } from './KeyPicker';
+import { detectKey } from '../core/detectKey';
+import { KeyPicker, type KeyChoice } from './KeyPicker';
+import { KeyStatus } from './KeyStatus';
 import './app.css';
-
-// The picker starts on C major until `Auto` lands (task 7.6).
-const C_MAJOR: Key = { tonic: 0, mode: 'major' };
 
 export function App() {
   const [sheet, setSheet] = useState('');
-  const [key, setKey] = useState<Key>(C_MAJOR);
-  const output = convert(sheet, key, 'roman');
+  const [choice, setChoice] = useState<KeyChoice>('auto');
+
+  // Detection runs only on Auto. A manual key converts the whole sheet in that
+  // key and drops the detected key changes; no chords means nothing to convert.
+  const detection = choice === 'auto' ? detectKey(sheet) : null;
+  const output =
+    choice === 'auto'
+      ? detection
+        ? convert(sheet, detection.regions, 'roman')
+        : sheet
+      : convert(sheet, choice, 'roman');
 
   return (
     <main className="app">
       <header className="app-header">
         <h1>Nashviato</h1>
-        <KeyPicker value={key} onChange={setKey} />
+        <KeyPicker value={choice} onChange={setChoice} />
+        {choice === 'auto' && <KeyStatus sheet={sheet} detection={detection} onPick={setChoice} />}
       </header>
       <label className="pane">
         <span className="pane-title">Chord sheet</span>

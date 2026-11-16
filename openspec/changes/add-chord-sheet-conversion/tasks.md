@@ -54,7 +54,7 @@ The JSON tables in `fixtures/` are the reference data for the core. Where a task
 - [x] 7.3 Scorer with the `KEY_WEIGHTS` table; tie-break to major; `guessed` and `runnerUp` (a different tonic)
 - [x] 7.4 Corpus test with a recorded list of misses, at least 90%; every miss is `hard` and comes back guessed with the labelled key as runner-up
 - [x] 7.5 Key regions: sections, transposed repeats, mid-sheet hints; `fixtures/key-changes.json` with exact regions, including sheets that must not change key
-- [ ] 7.6 UI: `Auto` option as default, guessed indicator, one-tap runner-up, "no chords found"; pass `detection.regions` to `convert`; show key changes next to the key; a manual key converts the whole sheet in that key
+- [x] 7.6 UI: `Auto` option as default, guessed indicator, one-tap runner-up, "no chords found"; pass `detection.regions` to `convert`; show key changes next to the key; a manual key converts the whole sheet in that key
 - [ ] 7.7 Spot-check the corpus labels against songs you know, and add the first real sheets that detect wrongly
 
 ## 8. Notation setting

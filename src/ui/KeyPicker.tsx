@@ -1,15 +1,19 @@
 import { ALL_KEYS, keyName } from '../core/keyName';
 import type { Key } from '../core/types';
 
-const toValue = (key: Key) => `${key.tonic}-${key.mode}`;
+/** What the picker holds: `auto` (detect the key from the sheet) or a manual key. */
+export type KeyChoice = 'auto' | Key;
+
+const AUTO = 'auto';
+const toValue = (choice: KeyChoice) => (choice === AUTO ? AUTO : `${choice.tonic}-${choice.mode}`);
 
 const OPTIONS = ALL_KEYS.map((key) => ({ key, value: toValue(key), name: keyName(key) }));
 const MAJOR = OPTIONS.filter((option) => option.key.mode === 'major');
 const MINOR = OPTIONS.filter((option) => option.key.mode === 'minor');
 
-type Props = { value: Key; onChange: (key: Key) => void };
+type Props = { value: KeyChoice; onChange: (choice: KeyChoice) => void };
 
-/** One native select with the 12 major and the 12 minor keys: a single tap on a phone. */
+/** One native select: `Auto`, then the 12 major and the 12 minor keys. A single tap on a phone. */
 export function KeyPicker({ value, onChange }: Props) {
   return (
     <label className="key-picker">
@@ -18,9 +22,10 @@ export function KeyPicker({ value, onChange }: Props) {
         value={toValue(value)}
         onChange={(event) => {
           const picked = OPTIONS.find((option) => option.value === event.target.value);
-          if (picked) onChange(picked.key);
+          onChange(picked ? picked.key : AUTO);
         }}
       >
+        <option value={AUTO}>Auto</option>
         <optgroup label="Major">
           {MAJOR.map((option) => (
             <option key={option.value} value={option.value}>

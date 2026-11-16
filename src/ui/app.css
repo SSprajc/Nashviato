@@ -24,6 +24,7 @@ body {
 
 .app-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -107,4 +108,32 @@ select {
   font: inherit;
   font-size: 1rem;
   font-weight: 400;
+}
+
+/* Takes a row of its own under the title and the picker. */
+.key-status {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+.key-status p,
+.key-status ul {
+  margin: 0;
+}
+
+.key-status ul {
+  padding-left: 1.25rem;
+}
+
+.key-status button {
+  min-height: 2.75rem;
+  margin-left: 0.75rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
 }

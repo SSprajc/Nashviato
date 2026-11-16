@@ -46,8 +46,13 @@ The app SHALL show the key in use and let the user choose any of 12 roots in maj
 
 #### Scenario: No chords found
 
-- **WHEN** the input contains no chord lines and the key is `Auto`
+- **WHEN** the input has text but contains no chord lines, and the key is `Auto`
 - **THEN** the key display reads "no chords found" and the output equals the input
+
+#### Scenario: Empty input shows no key
+
+- **WHEN** the input is empty or only whitespace and the key is `Auto`
+- **THEN** no key display is shown
 
 ### Requirement: Notation setting
 
