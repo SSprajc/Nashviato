@@ -5,6 +5,7 @@
     "Expected files are written by hand from the spec, never by running convert."
   ],
   "sheets": {
+    "last-chorus-up-a-tone": "auto",
     "major-key-slash-chords": "G",
     "minor-key-slash-chords": "Dm",
     "seventh-chords-and-repeats": "C",

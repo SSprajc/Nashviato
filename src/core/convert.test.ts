@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { convert } from './convert';
-import type { Key } from './types';
+import type { Key, KeyRegion } from './types';
 
 const C_MAJOR: Key = { tonic: 0, mode: 'major' };
 const G_MAJOR: Key = { tonic: 7, mode: 'major' };
+const D_MAJOR: Key = { tonic: 2, mode: 'major' };
 
 /** Chord tokens of a single output line, ignoring spacing (alignment is task group 6). */
 const tokens = (line: string) => line.trim().split(/\s+/);
@@ -89,5 +90,23 @@ describe('convert', () => {
 
   it('keeps CRLF line endings', () => {
     expect(convert('C\r\nwords\r\nG\r\n', C_MAJOR, 'roman')).toBe('I\r\nwords\r\nV\r\n');
+  });
+
+  it('Chords after a key change are numbered in the new key', () => {
+    const regions: KeyRegion[] = [
+      { startLine: 0, key: C_MAJOR, reason: 'start' },
+      { startLine: 2, key: D_MAJOR, reason: 'repeat' },
+    ];
+    expect(convert('C  F  G\n\nD  G  A', regions, 'roman')).toBe('I  IV  V\n\nI  IV  V');
+  });
+
+  it('Single key is one region', () => {
+    expect(convert('C  F  G\n\nD  G  A', C_MAJOR, 'roman')).toBe('I  IV  V\n\nII  V  VI');
+  });
+
+  it('uses the first region for lines before it, and returns the sheet for an empty list', () => {
+    const late: KeyRegion[] = [{ startLine: 1, key: D_MAJOR, reason: 'start' }];
+    expect(convert('D\nA', late, 'roman')).toBe('I\nV');
+    expect(convert('D\nA', [], 'roman')).toBe('D\nA');
   });
 });

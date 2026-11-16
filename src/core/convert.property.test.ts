@@ -2,7 +2,7 @@ import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 import { classifyLine } from './classifyLine';
 import { convert } from './convert';
-import type { Key, PitchClass } from './types';
+import type { Key, KeyRegion, PitchClass } from './types';
 
 const key: fc.Arbitrary<Key> = fc.record({
   tonic: fc.integer({ min: 0, max: 11 }).map((n) => n as PitchClass),
@@ -80,6 +80,55 @@ describe('convert: properties', () => {
           expect(output[i]!.endsWith('\r')).toBe(line.endsWith('\r'));
           // Whitespace runs are untouched until alignment (group 6) lands.
           expect(output[i]!.split(/\S+/)).toEqual(line.split(/\S+/));
+        });
+      }),
+    );
+  });
+});
+
+const regions: fc.Arbitrary<KeyRegion[]> = fc
+  .array(fc.tuple(fc.integer({ min: 0, max: 14 }), key), { minLength: 1, maxLength: 4 })
+  .map((rows) =>
+    rows
+      .sort(([a], [b]) => a - b)
+      .map(([startLine, k], index) => ({
+        startLine,
+        key: k,
+        reason: index === 0 ? ('start' as const) : ('repeat' as const),
+      })),
+  );
+
+describe('convert: key regions', () => {
+  it('a one-region list equals the single key', () => {
+    fc.assert(
+      fc.property(anyText, key, (text, k) => {
+        const one: KeyRegion[] = [{ startLine: 0, key: k, reason: 'start' }];
+        expect(convert(text, one, 'roman')).toBe(convert(text, k, 'roman'));
+      }),
+    );
+  });
+
+  it('regions change neither the line count nor which lines are chord lines', () => {
+    fc.assert(
+      fc.property(sheet, regions, (text, list) => {
+        const input = text.split('\n');
+        const output = convert(text, list, 'roman').split('\n');
+        expect(output).toHaveLength(input.length);
+        input.forEach((line, i) => {
+          const body = line.endsWith('\r') ? line.slice(0, -1) : line;
+          if (classifyLine(body).kind === 'text') expect(output[i]).toBe(line);
+        });
+      }),
+    );
+  });
+
+  it('every line is numbered as the single key of its region would number it', () => {
+    fc.assert(
+      fc.property(sheet, regions, (text, list) => {
+        const output = convert(text, list, 'roman').split('\n');
+        text.split('\n').forEach((line, i) => {
+          const region = list.filter((candidate) => candidate.startLine <= i).at(-1) ?? list[0]!;
+          expect(output[i]).toBe(convert(line, region.key, 'roman'));
         });
       }),
     );

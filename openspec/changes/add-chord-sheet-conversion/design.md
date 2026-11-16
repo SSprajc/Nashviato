@@ -25,11 +25,11 @@ Greenfield, solo. The value is in the conversion rules; the UI is one screen. De
 | `chordQuality` | built | `chordTable.test.ts` |
 | `classifyLine` | built | `classifyLine.test.ts`, `lineTable.test.ts` over `fixtures/chord-lines.json` |
 | `keyHints`, `keyScore`, `detectKey` | built | `detectKey.test.ts`, `keyCorpus.test.ts` over `fixtures/key-corpus.json` and `fixtures/key-changes.json` |
-| `toDegree`, renderers | to build (task group 4, 8) | `fixtures/degrees.json` is the oracle |
+| `toDegree`, Roman renderer | built (Arabic renderer: task group 8) | `degreeTable.test.ts` over `fixtures/degrees.json`, `render.test.ts` |
 | alignment | to build (task group 6) | spec scenarios under Column alignment |
-| `convert` with key regions | to build (task 4.4) | spec scenarios under Key regions |
+| `convert` with key regions | built | `convert.test.ts`, `convert.property.test.ts`, `golden.test.ts` with a key per sheet in `fixtures/golden.json` |
 
-`convert.ts` is still the walking skeleton: natural roots on the major scale, no bass, replacement in place, one key.
+`convert.ts` still replaces chords in place; alignment is task group 6.
 
 ## Decisions
 

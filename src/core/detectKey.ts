@@ -3,15 +3,9 @@ import { classifyLine, matchHeader } from './classifyLine';
 import { parseCapo, parseKeyHint } from './keyHints';
 import { KEY_WEIGHTS, rankKeys, scoreKey, type KeyWeights, type ScoredChord } from './keyScore';
 import { notePitch, sameKey, toPitchClass, transposeKey } from './pitch';
-import type { Key } from './types';
+import type { Key, KeyRegion } from './types';
 
-/**
- * A stretch of the sheet in one key, from `startLine` (0-based) to the next
- * region. `reason` says why the region starts: `start` for the first one,
- * `hint` for a key stated in the sheet, `repeat` for a section that repeats an
- * earlier one in another key (or returns to it).
- */
-export type KeyRegion = { startLine: number; key: Key; reason: 'start' | 'hint' | 'repeat' };
+export type { KeyRegion };
 
 export type KeyDetection = {
   /** The home key: the key of the first region. */
