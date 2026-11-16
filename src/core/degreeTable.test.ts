@@ -44,7 +44,7 @@ describe('Degree table', () => {
     for (const row of table.keys) expect(Object.keys(row.degrees)).toHaveLength(21);
   });
 
-  it.fails.each(table.keys)('Degree table: key of $name, major and minor', ({ tonic, degrees }) => {
+  it.each(table.keys)('Degree table: key of $name, major and minor', ({ tonic, degrees }) => {
     for (const mode of MODES) {
       for (const [spelled, expected] of Object.entries(degrees)) {
         expect(written(toDegree(note(spelled), { tonic, mode })), `${spelled} in ${mode}`).toBe(
@@ -56,27 +56,60 @@ describe('Degree table', () => {
 });
 
 describe('Degree calculation (roots only)', () => {
-  it.fails('Diatonic chords in a major key', () => {
+  it('Diatonic chords in a major key', () => {
     expect(degrees('G A B C D E', major(7))).toEqual(['I', 'II', 'III', 'IV', 'V', 'VI']);
   });
 
-  it.fails('Minor key numbers from the minor tonic', () => {
+  it('Minor key numbers from the minor tonic', () => {
     expect(degrees('A C F G E', minor(9))).toEqual(['I', 'bIII', 'bVI', 'bVII', 'V']);
   });
 
-  it.fails('Off-scale root follows source spelling', () => {
+  it('Off-scale root follows source spelling', () => {
     expect(degrees('F# Gb', major(0))).toEqual(['#IV', 'bV']);
   });
 
-  it.fails('Natural off-scale root uses the default accidental', () => {
+  it('Natural off-scale root uses the default accidental', () => {
     expect(degrees('G C D', major(4))).toEqual(['bIII', 'bVI', 'bVII']);
   });
 
-  it.fails('Enharmonic spelling of a scale tone is plain', () => {
+  it('Enharmonic spelling of a scale tone is plain', () => {
     expect(degrees('A#', major(5))).toEqual(['IV']);
   });
 
-  it.fails('Degree accidentals are written in ASCII', () => {
+  it('Degree accidentals are written in ASCII', () => {
     expect(degrees('E♭ F♯', major(0))).toEqual(['bIII', '#IV']);
+  });
+});
+
+describe('Slash chords (bass by the same function)', () => {
+  /** Root and bass degrees around the verbatim suffix, composed here and not by the renderer. */
+  const slash = (token: string, key: Key) => {
+    const chord = parseChord(token);
+    if (!chord) throw new Error(`bad chord in test: ${token}`);
+    const bass = chord.bass ? `/${written(toDegree(chord.bass, key))}` : '';
+    return written(toDegree(chord.root, key)) + chord.suffix + bass;
+  };
+
+  it('Diatonic bass', () => {
+    expect(slash('G/B', major(0))).toBe('V/VII');
+  });
+
+  it('Off-scale bass', () => {
+    expect(slash('D/F#', major(0))).toBe('II/#IV');
+  });
+
+  it('Bass follows its own spelling', () => {
+    expect(slash('C/Bb', major(0))).toBe('I/bVII');
+    expect(slash('C/A#', major(0))).toBe('I/#VI');
+  });
+
+  it('Bass in a minor key', () => {
+    expect(slash('Am/G', minor(9))).toBe('Im/bVII');
+    expect(slash('Am/G#', minor(9))).toBe('Im/VII');
+  });
+
+  it('Suffix that contains a slash', () => {
+    expect(slash('C6/9', major(0))).toBe('I6/9');
+    expect(slash('C6/9/E', major(0))).toBe('I6/9/III');
   });
 });
