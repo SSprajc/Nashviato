@@ -33,7 +33,7 @@ The JSON tables in `fixtures/` are the reference data for the core. Where a task
 
 - [x] 4.1 Table test over `fixtures/degrees.json` (every spelled note in all 12 keys, for the major and the minor key on each tonic), plus the "Degree calculation" scenarios
 - [x] 4.2 `toDegree(note, key)` with the accidental rules; use `notePitch` from `pitch.ts`; slash-chord bass by the same function, with the "Slash chords" scenarios
-- [ ] 4.3 Roman renderer; degree accidentals always `b` and `#`; replace the skeleton `convertChord`; per-fixture key in the golden runner; golden fixtures for a major-key and a minor-key sheet with slash chords and off-scale roots
+- [x] 4.3 Roman renderer; degree accidentals always `b` and `#`; replace the skeleton `convertChord`; per-fixture key in the golden runner; golden fixtures for a major-key and a minor-key sheet with slash chords and off-scale roots
 - [ ] 4.4 `convert(sheet, key | regions, style)`: number each chord line in the key of its region; the "Key regions" scenarios of the chord-conversion spec; a golden fixture whose last chorus repeats a tone up, converted with the regions `detectKey` returns; property test that a one-region list equals the single key
 
 ## 5. Key picker

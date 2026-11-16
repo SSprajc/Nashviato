@@ -1,0 +1,13 @@
+{
+  "about": [
+    "Key of every golden sheet: fixtures/<name>.input.txt converts to fixtures/<name>.expected.txt in it.",
+    "A key is written as in a key hint (`G`, `Dm`, `F#m`). `auto` converts with the regions detectKey returns.",
+    "Expected files are written by hand from the spec, never by running convert."
+  ],
+  "sheets": {
+    "major-key-slash-chords": "G",
+    "minor-key-slash-chords": "Dm",
+    "seventh-chords-and-repeats": "C",
+    "skeleton": "C"
+  }
+}

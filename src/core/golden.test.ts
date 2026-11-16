@@ -2,29 +2,42 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { convert } from './convert';
+import { parseKeyHint } from './keyHints';
 import type { Key } from './types';
 
 // Golden-file runner: every fixtures/<name>.input.txt must convert to exactly
-// fixtures/<name>.expected.txt. All fixtures are in C major for now; a per-fixture
-// key arrives with the minor-key fixture in task 4.3.
+// fixtures/<name>.expected.txt, in the key fixtures/golden.json lists for it.
 
 const FIXTURES_DIR = join(import.meta.dirname, '../../fixtures');
 const INPUT_SUFFIX = '.input.txt';
-const C_MAJOR: Key = { tonic: 0, mode: 'major' };
+
+const read = (file: string) => readFileSync(join(FIXTURES_DIR, file), 'utf8');
 
 const names = readdirSync(FIXTURES_DIR)
   .filter((file) => file.endsWith(INPUT_SUFFIX))
   .map((file) => file.slice(0, -INPUT_SUFFIX.length))
   .sort();
 
-const read = (file: string) => readFileSync(join(FIXTURES_DIR, file), 'utf8');
+const keys = (JSON.parse(read('golden.json')) as { sheets: Record<string, string> }).sheets;
+
+/** `G`, `Dm`, `F#m` as a key; the same reader the hints use. */
+function key(name: string): Key {
+  const parsed = parseKeyHint(`Key: ${name}`);
+  if (!parsed) throw new Error(`bad key name in golden.json: ${name}`);
+  return parsed;
+}
 
 describe('golden fixtures', () => {
   it('finds at least one fixture', () => {
     expect(names.length).toBeGreaterThan(0);
   });
 
+  it('lists a key for every sheet, and no sheet that does not exist', () => {
+    expect(Object.keys(keys).sort()).toEqual(names);
+  });
+
   it.each(names)('%s', (name) => {
-    expect(convert(read(name + INPUT_SUFFIX), C_MAJOR, 'roman')).toBe(read(`${name}.expected.txt`));
+    const converted = convert(read(name + INPUT_SUFFIX), key(keys[name]!), 'roman');
+    expect(converted).toBe(read(`${name}.expected.txt`));
   });
 });

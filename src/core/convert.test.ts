@@ -8,7 +8,7 @@ const G_MAJOR: Key = { tonic: 7, mode: 'major' };
 /** Chord tokens of a single output line, ignoring spacing (alignment is task group 6). */
 const tokens = (line: string) => line.trim().split(/\s+/);
 
-describe('convert (walking skeleton: plain triads on chord-only lines)', () => {
+describe('convert', () => {
   it('Chord line is converted', () => {
     expect(tokens(convert('C   G   Am  F', C_MAJOR, 'roman'))).toEqual(['I', 'V', 'VIm', 'IV']);
   });
@@ -26,6 +26,10 @@ describe('convert (walking skeleton: plain triads on chord-only lines)', () => {
       'V',
       'VIm',
     ]);
+  });
+
+  it('converts accidentals and slash chords on a chord line', () => {
+    expect(convert('Bb  D/F#  Ebmaj7', C_MAJOR, 'roman')).toBe('bVII  II/#IV  bIIImaj7');
   });
 
   it('Non-diatonic major chord stays major', () => {

@@ -1,0 +1,17 @@
+Intro: Im  Im/bVII  bVI  V7
+
+Verse 1:
+Im          bVII           bVI          V
+Placeholder words fill up the first line
+Im/bIII        IVm          V7sus4      V7
+More made-up words to finish the verse
+
+Chorus:
+bIII     bVII/II    Im    bVImaj7
+Sing the placeholder chorus here
+IVm7   bII     V7    Im
+One last line of filler
+
+Bridge:
+| IVm  | bVII7  | bIII  bIII/V | bVI  |
+| IIm7b5  | V7  VIIdim | Im  | N.C. |
