@@ -4,6 +4,7 @@ import type { Degree, Key, NotationStyle, ParsedChord } from './types';
 /** Per style: the numeral of each degree, 1 to 7. */
 const NUMERALS: Record<NotationStyle, readonly string[]> = {
   roman: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
+  arabic: ['1', '2', '3', '4', '5', '6', '7'],
 };
 
 /** A degree as text. The accidental is always ASCII `b` or `#`, before the numeral. */

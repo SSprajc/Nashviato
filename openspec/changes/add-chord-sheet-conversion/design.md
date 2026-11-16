@@ -25,7 +25,7 @@ Greenfield, solo. The value is in the conversion rules; the UI is one screen. De
 | `chordQuality` | built | `chordTable.test.ts` |
 | `classifyLine` | built | `classifyLine.test.ts`, `lineTable.test.ts` over `fixtures/chord-lines.json` |
 | `keyHints`, `keyScore`, `detectKey` | built | `detectKey.test.ts`, `keyCorpus.test.ts` over `fixtures/key-corpus.json` and `fixtures/key-changes.json` |
-| `toDegree`, Roman renderer | built (Arabic renderer: task group 8) | `degreeTable.test.ts` over `fixtures/degrees.json`, `render.test.ts` |
+| `toDegree`, Roman and Arabic renderers | built | `degreeTable.test.ts` over `fixtures/degrees.json`, `render.test.ts` |
 | alignment (in `convert.ts`) | built | `alignmentTable.test.ts` over `fixtures/alignment.json` |
 | `convert` with key regions | built | `convert.test.ts`, `convert.property.test.ts`, `golden.test.ts` with a key per sheet in `fixtures/golden.json` |
 

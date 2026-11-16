@@ -1,7 +1,10 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { convert } from './convert';
 import { parseChord } from './parseChord';
 import { renderChord, renderDegree } from './render';
-import type { Key } from './types';
+import type { Key, PitchClass } from './types';
 
 const C_MAJOR: Key = { tonic: 0, mode: 'major' };
 const A_MINOR: Key = { tonic: 9, mode: 'minor' };
@@ -56,5 +59,62 @@ describe('renderChord', () => {
 
   it('Suffix that contains a slash', () => {
     expect(roman('C6/9 C6/9/E', C_MAJOR)).toEqual(['I6/9', 'I6/9/III']);
+  });
+});
+
+// The degree table again, through the renderer in both styles. The Arabic
+// column is the Roman entry with its numeral replaced, so both styles share
+// accidentals by construction of the expectation, not of the code.
+describe('renderers over the degree table', () => {
+  interface DegreeTable {
+    keys: { tonic: PitchClass; name: string; degrees: Record<string, string> }[];
+  }
+  const table = JSON.parse(
+    readFileSync(join(import.meta.dirname, '../../fixtures/degrees.json'), 'utf8'),
+  ) as DegreeTable;
+
+  const ARABIC: Record<string, string> = {
+    I: '1',
+    II: '2',
+    III: '3',
+    IV: '4',
+    V: '5',
+    VI: '6',
+    VII: '7',
+  };
+  const toArabic = (romanDegree: string) => {
+    const [, accidental, numeral] = /^([b#]?)([IV]+)$/.exec(romanDegree)!;
+    return accidental + ARABIC[numeral!]!;
+  };
+
+  it.each(table.keys)('key of $name in Roman and Arabic', ({ tonic, degrees }) => {
+    const key: Key = { tonic, mode: 'major' };
+    for (const [spelled, expected] of Object.entries(degrees)) {
+      const chord = parseChord(`${spelled}m7/${spelled}`)!;
+      expect(renderChord(chord, key, 'roman')).toBe(`${expected}m7/${expected}`);
+      expect(renderChord(chord, key, 'arabic')).toBe(
+        `${toArabic(expected)}m7/${toArabic(expected)}`,
+      );
+    }
+  });
+});
+
+describe('Notation style', () => {
+  const arabic = (tokens: string, key: Key) =>
+    tokens.split(' ').map((token) => renderChord(parseChord(token)!, key, 'arabic'));
+
+  it('Arabic style', () => {
+    expect(arabic('Am Bb G/B', C_MAJOR)).toEqual(['6m', 'b7', '5/7']);
+  });
+
+  it('renders accidentals, suffixes and basses the same way in both styles', () => {
+    expect(arabic('F#m7b5 C6/9/E E♭', C_MAJOR)).toEqual(['#4m7b5', '16/9/3', 'b3']);
+    expect(arabic('Am/G# E7', A_MINOR)).toEqual(['1m/7', '57']);
+  });
+
+  it('converts a sheet in Arabic numerals', () => {
+    expect(convert('Intro: C   Am   F   G\nwords', C_MAJOR, 'arabic')).toBe(
+      'Intro: 1   6m   4   5\nwords',
+    );
   });
 });

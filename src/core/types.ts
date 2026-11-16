@@ -24,5 +24,4 @@ export type Degree = { number: 1 | 2 | 3 | 4 | 5 | 6 | 7; accidental: -1 | 0 | 1
  */
 export type KeyRegion = { startLine: number; key: Key; reason: 'start' | 'hint' | 'repeat' };
 
-/** `'arabic'` is added with its renderer in task 8.1. */
-export type NotationStyle = 'roman';
+export type NotationStyle = 'roman' | 'arabic';
