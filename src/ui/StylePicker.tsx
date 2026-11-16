@@ -8,8 +8,8 @@ export function StylePicker({ value, onChange }: Props) {
     <label className="picker">
       <span>Numerals</span>
       <select value={value} onChange={(event) => onChange(event.target.value as NotationStyle)}>
-        <option value="roman">Roman (VIm)</option>
-        <option value="arabic">Arabic (6m)</option>
+        <option value="roman">Roman</option>
+        <option value="arabic">Arabic</option>
       </select>
     </label>
   );
