@@ -2,6 +2,7 @@ import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 import { classifyLine } from './classifyLine';
 import { convert } from './convert';
+import { renderChord } from './render';
 import type { Key, KeyRegion, PitchClass } from './types';
 
 const key: fc.Arbitrary<Key> = fc.record({
@@ -127,6 +128,144 @@ describe('convert: key regions', () => {
         text.split('\n').forEach((line, i) => {
           const region = list.filter((candidate) => candidate.startLine <= i).at(-1) ?? list[0]!;
           expect(output[i]).toBe(convert(line, region.key, 'roman'));
+        });
+      }),
+    );
+  });
+});
+
+/** A chord line's tokens with the text each one is converted to. */
+function renderedTokens(line: string, k: Key) {
+  const classified = classifyLine(line);
+  if (classified.kind === 'text') return null;
+  return classified.tokens.map((token) => ({
+    column: token.column,
+    source: token.text,
+    text: token.kind === 'chord' ? renderChord(token.chord, k, 'roman') : token.text,
+  }));
+}
+
+/**
+ * Where each converted token starts in the output line, reading left to right
+ * and skipping whitespace; `null` when the output is not those tokens in order.
+ */
+function outputColumns(output: string, texts: readonly string[]): number[] | null {
+  const columns: number[] = [];
+  let at = 0;
+  for (const text of texts) {
+    while (at < output.length && /\s/.test(output[at]!)) at++;
+    if (!output.startsWith(text, at)) return null;
+    columns.push(at);
+    at += text.length;
+  }
+  return output.slice(at).trim() === '' ? columns : null;
+}
+
+const bodies = (text: string) =>
+  text.split('\n').map((line) => (line.endsWith('\r') ? line.slice(0, -1) : line));
+
+// In Bb major none of these gets longer: `Bb` is `I`, `Eb7` is `IV7`, `F/Eb` is `V/IV`.
+const B_FLAT_MAJOR: Key = { tonic: 10, mode: 'major' };
+const compactWord = fc.constantFrom(
+  ...['Bb', 'Eb', 'F', 'Bbmaj7', 'Eb7', 'F/Eb', 'Bbsus4'],
+  ...['|Bb', 'Eb|', 'Bb-F', '(Eb)', 'F,', 'Bb*', '|', '%', 'x2', 'N.C.'],
+);
+const compactLine = fc
+  .tuple(
+    fc.constantFrom('', '  ', 'Intro: ', '[Chorus]  '),
+    fc.array(fc.tuple(compactWord, fc.constantFrom(' ', '  ', '     ')), {
+      minLength: 1,
+      maxLength: 8,
+    }),
+  )
+  // Every line opens with a chord, so it is a chord line whatever follows.
+  .map(([lead, parts]) => `${lead}Bb  ` + parts.map(([word, space]) => word + space).join(''));
+
+describe('convert: alignment properties', () => {
+  it('output tokens are in source order', () => {
+    fc.assert(
+      fc.property(sheet, key, (text, k) => {
+        const output = bodies(convert(text, k, 'roman'));
+        bodies(text).forEach((line, i) => {
+          const tokens = renderedTokens(line, k);
+          if (!tokens) return;
+          const texts = tokens.map((token) => token.text);
+          expect(outputColumns(output[i]!, texts), `${line} -> ${output[i]}`).not.toBeNull();
+        });
+      }),
+    );
+  });
+
+  it('glued tokens stay glued, and tokens apart stay apart', () => {
+    fc.assert(
+      fc.property(fc.oneof(sheet, compactLine), key, (text, k) => {
+        const output = bodies(convert(text, k, 'roman'));
+        bodies(text).forEach((line, i) => {
+          const tokens = renderedTokens(line, k);
+          if (!tokens) return;
+          const columns = outputColumns(
+            output[i]!,
+            tokens.map((token) => token.text),
+          )!;
+          for (let t = 1; t < tokens.length; t++) {
+            const before = tokens[t - 1]!;
+            const glued = tokens[t]!.column === before.column + before.source.length;
+            const touching = columns[t] === columns[t - 1]! + before.text.length;
+            expect(touching, `${line} -> ${output[i]}`).toBe(glued);
+          }
+        });
+      }),
+    );
+  });
+
+  // Columns are kept per unit: inside a unit a shorter chord pulls the tokens
+  // glued after it to the left (`Bb-F` is `I-V`), because they must stay adjacent.
+  it('a line whose converted chords are no longer than their sources keeps the column of every unit', () => {
+    const keepsColumns = (line: string, output: string, k: Key) => {
+      const tokens = renderedTokens(line, k);
+      // A tab gap is copied as written, so string columns after it are not comparable.
+      if (!tokens || line.includes('\t')) return;
+      if (tokens.some((token) => token.text.length > token.source.length)) return;
+      const columns = outputColumns(
+        output,
+        tokens.map((token) => token.text),
+      )!;
+      const startsUnit = (t: number) =>
+        t === 0 || tokens[t]!.column > tokens[t - 1]!.column + tokens[t - 1]!.source.length;
+      const unitStarts = tokens.map((_, t) => t).filter(startsUnit);
+      expect(
+        unitStarts.map((t) => columns[t]),
+        `${line} -> ${output}`,
+      ).toEqual(unitStarts.map((t) => tokens[t]!.column));
+    };
+
+    fc.assert(
+      fc.property(compactLine, (line) => {
+        expect(classifyLine(line).kind).toBe('chords');
+        keepsColumns(line, convert(line, B_FLAT_MAJOR, 'roman'), B_FLAT_MAJOR);
+      }),
+    );
+    fc.assert(
+      fc.property(sheet, key, (text, k) => {
+        const output = bodies(convert(text, k, 'roman'));
+        bodies(text).forEach((line, i) => keepsColumns(line, output[i]!, k));
+      }),
+    );
+  });
+
+  it('a line grows by no more than its chords grew', () => {
+    fc.assert(
+      fc.property(sheet, key, (text, k) => {
+        const output = bodies(convert(text, k, 'roman'));
+        bodies(text).forEach((line, i) => {
+          if (classifyLine(line).kind === 'text') return;
+          expect(output[i]!.trimEnd().length).toBeLessThanOrEqual(
+            line.trimEnd().length +
+              renderedTokens(line, k)!.reduce(
+                (grown, token) => grown + Math.max(0, token.text.length - token.source.length),
+                0,
+              ),
+          );
         });
       }),
     );

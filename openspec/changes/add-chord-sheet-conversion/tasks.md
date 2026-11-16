@@ -45,7 +45,7 @@ The JSON tables in `fixtures/` are the reference data for the core. Where a task
 
 - [x] 6.1 Table tests for the "Column alignment" scenarios, including glued tokens, dash-joined chords and a gap with a tab
 - [x] 6.2 Place units (runs of glued tokens) at source columns; shift on collision; copy gaps that contain a tab; update golden fixtures
-- [ ] 6.3 Replace the property "whitespace runs are untouched" in `convert.property.test.ts` with: output tokens are in source order, glued tokens stay glued, and a line whose converted chords are no longer than their sources keeps every column
+- [x] 6.3 Replace the property "whitespace runs are untouched" in `convert.property.test.ts` with: output tokens are in source order, glued tokens stay glued, and a line whose converted chords are no longer than their sources keeps the column of every unit (inside a unit a shorter chord moves the tokens glued after it)
 
 ## 7. Key detection
 
