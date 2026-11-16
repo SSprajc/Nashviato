@@ -2,7 +2,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { App } from './App';
 
 afterEach(() => {
@@ -158,6 +158,30 @@ describe('App', () => {
     window.localStorage.setItem('nashviato.style', 'klingon');
     render(<App />);
     expect(screen.getByLabelText<HTMLSelectElement>('Numerals').value).toBe('roman');
+  });
+
+  it('Copy', async () => {
+    const writeText = vi.fn<(text: string) => Promise<void>>().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    render(<App />);
+    paste('C  G/B  Am\nPlaceholder words here');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Copy' }));
+
+    expect(await screen.findByRole('button', { name: 'Copied' })).toBeTruthy();
+    expect(writeText).toHaveBeenCalledExactlyOnceWith(output());
+    expect(writeText).toHaveBeenCalledWith('I  V/VII VIm\nPlaceholder words here');
+  });
+
+  it('says so when copying fails, and has nothing to copy from an empty sheet', async () => {
+    const writeText = vi.fn<(text: string) => Promise<void>>().mockRejectedValue(new Error('no'));
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    render(<App />);
+    expect(screen.getByRole<HTMLButtonElement>('button', { name: 'Copy' }).disabled).toBe(true);
+
+    paste('C G');
+    fireEvent.click(screen.getByRole('button', { name: 'Copy' }));
+    expect(await screen.findByRole('button', { name: 'Copy failed' })).toBeTruthy();
   });
 
   it('No chords found', () => {

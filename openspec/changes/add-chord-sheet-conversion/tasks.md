@@ -64,7 +64,7 @@ The JSON tables in `fixtures/` are the reference data for the core. Where a task
 
 ## 9. Copy and restore
 
-- [ ] 9.1 Copy button using the Clipboard API
+- [x] 9.1 Copy button using the Clipboard API
 - [ ] 9.2 Persist and restore last input
 
 ## 10. PWA

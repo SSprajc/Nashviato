@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { convert } from '../core/convert';
 import { detectKey } from '../core/detectKey';
 import type { NotationStyle } from '../core/types';
+import { CopyButton } from './CopyButton';
 import { KeyPicker, type KeyChoice } from './KeyPicker';
 import { KeyStatus } from './KeyStatus';
 import { loadStyle, saveStyle } from './storage';
@@ -39,7 +40,7 @@ export function App() {
         {choice === 'auto' && <KeyStatus sheet={sheet} detection={detection} onPick={setChoice} />}
       </header>
       <label className="pane">
-        <span className="pane-title">Chord sheet</span>
+        <span className="pane-head pane-title">Chord sheet</span>
         <textarea
           value={sheet}
           onChange={(event) => setSheet(event.target.value)}
@@ -50,9 +51,12 @@ export function App() {
         />
       </label>
       <section className="pane">
-        <h2 className="pane-title" id="output-title">
-          Converted sheet
-        </h2>
+        <div className="pane-head">
+          <h2 className="pane-title" id="output-title">
+            Converted sheet
+          </h2>
+          <CopyButton text={output} />
+        </div>
         <pre aria-labelledby="output-title" tabIndex={0}>
           {output}
         </pre>

@@ -132,9 +132,21 @@ select {
   padding-left: 1.25rem;
 }
 
-.key-status button {
+/* Same height in both panes, so the sheet and its conversion line up side by side. */
+.pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   min-height: 2.75rem;
+}
+
+.key-status button {
   margin-left: 0.75rem;
+}
+
+button {
+  min-height: 2.75rem;
   padding: 0 0.75rem;
   border: 1px solid var(--border);
   border-radius: 0.5rem;
@@ -142,4 +154,9 @@ select {
   color: inherit;
   font: inherit;
   cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
