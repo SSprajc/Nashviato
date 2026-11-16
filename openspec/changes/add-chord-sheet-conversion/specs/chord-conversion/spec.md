@@ -225,13 +225,13 @@ The system SHALL convert a sheet either in one key or in a list of key regions, 
 
 #### Scenario: Chords after a key change are numbered in the new key
 
-- **WHEN** the regions are C major from line 0 and D major from line 2, and the lines are `C  F  G`, an empty line and `D  G  A`
-- **THEN** the output lines are `I  IV  V`, an empty line and `I  IV  V`
+- **WHEN** the regions are C major from line 0 and D major from line 2, and the lines are `C   F   G`, an empty line and `D   G   A`
+- **THEN** the output lines are `I   IV  V`, an empty line and `I   IV  V`
 
 #### Scenario: Single key is one region
 
 - **WHEN** the same sheet is converted in C major alone
-- **THEN** the third line is `II  V  VI`
+- **THEN** the third line is `II  V   VI`
 
 ### Requirement: Notation style
 

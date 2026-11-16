@@ -6,7 +6,7 @@ const C_MAJOR: Key = { tonic: 0, mode: 'major' };
 const G_MAJOR: Key = { tonic: 7, mode: 'major' };
 const D_MAJOR: Key = { tonic: 2, mode: 'major' };
 
-/** Chord tokens of a single output line, ignoring spacing (alignment is task group 6). */
+/** Chord tokens of a single output line, ignoring spacing (exact columns: alignmentTable.test.ts). */
 const tokens = (line: string) => line.trim().split(/\s+/);
 
 describe('convert', () => {
@@ -30,7 +30,7 @@ describe('convert', () => {
   });
 
   it('converts accidentals and slash chords on a chord line', () => {
-    expect(convert('Bb  D/F#  Ebmaj7', C_MAJOR, 'roman')).toBe('bVII  II/#IV  bIIImaj7');
+    expect(convert('Bb  D/F#  Ebmaj7', C_MAJOR, 'roman')).toBe('bVII II/#IV bIIImaj7');
   });
 
   it('Non-diatonic major chord stays major', () => {
@@ -48,7 +48,7 @@ describe('convert', () => {
   });
 
   it('Header with trailing chords', () => {
-    expect(convert('Intro: G  D  Em  C', G_MAJOR, 'roman')).toBe('Intro: I  V  VIm  IV');
+    expect(convert('Intro: G  D  Em  C', G_MAJOR, 'roman')).toBe('Intro: I  V  VIm IV');
   });
 
   it('Markers pass through', () => {
@@ -97,11 +97,11 @@ describe('convert', () => {
       { startLine: 0, key: C_MAJOR, reason: 'start' },
       { startLine: 2, key: D_MAJOR, reason: 'repeat' },
     ];
-    expect(convert('C  F  G\n\nD  G  A', regions, 'roman')).toBe('I  IV  V\n\nI  IV  V');
+    expect(convert('C   F   G\n\nD   G   A', regions, 'roman')).toBe('I   IV  V\n\nI   IV  V');
   });
 
   it('Single key is one region', () => {
-    expect(convert('C  F  G\n\nD  G  A', C_MAJOR, 'roman')).toBe('I  IV  V\n\nII  V  VI');
+    expect(convert('C   F   G\n\nD   G   A', C_MAJOR, 'roman')).toBe('I   IV  V\n\nII  V   VI');
   });
 
   it('uses the first region for lines before it, and returns the sheet for an empty list', () => {

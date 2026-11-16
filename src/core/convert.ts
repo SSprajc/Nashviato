@@ -2,20 +2,47 @@ import { classifyLine } from './classifyLine';
 import { renderChord } from './render';
 import type { Key, KeyRegion, NotationStyle } from './types';
 
-// Converted chords still replace source chords in place, spacing untouched;
-// alignment is task group 6.
-
+/**
+ * Converts one line. On a chord line every token keeps its source column when
+ * it can: a unit (a run of glued tokens, such as `|C` or `Am-G`) starts at the
+ * source column of its first token, or exactly one space after the previous
+ * unit when the output has already reached that column. A gap that contains a
+ * tab is copied as written, because tab stops cannot be shifted by a column;
+ * columns are then counted afresh from the unit after it.
+ */
 function convertLine(line: string, key: Key, style: NotationStyle): string {
   const classified = classifyLine(line);
   if (classified.kind === 'text') return line;
+
   let out = '';
-  let copied = 0;
+  // Where the previous token ended in the source.
+  let sourceEnd = 0;
+  // Output column minus source column for a unit that has not been shifted.
+  let offset = 0;
+
   for (const token of classified.tokens) {
-    if (token.kind !== 'chord') continue;
-    out += line.slice(copied, token.column) + renderChord(token.chord, key, style);
-    copied = token.column + token.text.length;
+    const text = token.kind === 'chord' ? renderChord(token.chord, key, style) : token.text;
+    const gap = line.slice(sourceEnd, token.column);
+    sourceEnd = token.column + token.text.length;
+
+    // No gap: the token is glued to the one before it (or starts the line).
+    if (gap !== '') {
+      const target = token.column + offset;
+      if (gap.includes('\t')) {
+        out += gap;
+        offset = out.length - token.column;
+      } else if (out.length + gap.length === target) {
+        // Nothing before this unit moved: keep the gap exactly as written.
+        out += gap;
+      } else if (out.length < target) {
+        out += ' '.repeat(target - out.length);
+      } else {
+        out += ' ';
+      }
+    }
+    out += text;
   }
-  return out + line.slice(copied);
+  return out + line.slice(sourceEnd);
 }
 
 /**

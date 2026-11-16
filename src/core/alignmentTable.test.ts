@@ -36,11 +36,7 @@ describe('Column alignment table', () => {
     for (const scenario of SCENARIOS) expect(shown).toContain(scenario);
   });
 
-  // Alignment arrives in task 6.2; until then chords are replaced in place and
-  // the table as a whole is an expected failure.
-  it.fails('every row converts to exactly its expected line', () => {
-    for (const [keyName, input, expected, shows] of rows) {
-      expect(convert(input, key(keyName), 'roman'), shows).toBe(expected);
-    }
+  it.each(rows)('in %s, %j becomes %j: %s', (keyName, input, expected) => {
+    expect(convert(input, key(keyName), 'roman')).toBe(expected);
   });
 });

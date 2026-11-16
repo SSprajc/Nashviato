@@ -1,17 +1,17 @@
 [Verse]
-I        V/VII      VIm       VIm/V
+I        V/VII     VIm      VIm/V
 Placeholder words walk down the line
-IV        I/III       IIm7      V7
+IV       I/III     IIm7     V7
 More filler words to round it out
 
 [Pre-Chorus]
-bVII        IV/VI       bVI       V7sus4  V7
+bVII     IV/VI     bVI      V7sus4  V7
 One borrowed line of made-up words
 
 [Chorus]
-I    III7    VIm    I7/III
+I    III7  VIm   I7/III
 Sing the placeholder chorus here
-IV    #IVdim    I/V    #Vdim   VIm
+IV   #IVdim   I/V    #Vdim   VIm
 One more line of filler text
-II7/#IV   IVm6   I
+II7/#IV IVm6  I
 And then the made-up ending

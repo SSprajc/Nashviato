@@ -26,10 +26,9 @@ Greenfield, solo. The value is in the conversion rules; the UI is one screen. De
 | `classifyLine` | built | `classifyLine.test.ts`, `lineTable.test.ts` over `fixtures/chord-lines.json` |
 | `keyHints`, `keyScore`, `detectKey` | built | `detectKey.test.ts`, `keyCorpus.test.ts` over `fixtures/key-corpus.json` and `fixtures/key-changes.json` |
 | `toDegree`, Roman renderer | built (Arabic renderer: task group 8) | `degreeTable.test.ts` over `fixtures/degrees.json`, `render.test.ts` |
-| alignment | to build (task group 6) | spec scenarios under Column alignment |
+| alignment (in `convert.ts`) | built | `alignmentTable.test.ts` over `fixtures/alignment.json` |
 | `convert` with key regions | built | `convert.test.ts`, `convert.property.test.ts`, `golden.test.ts` with a key per sheet in `fixtures/golden.json` |
 
-`convert.ts` still replaces chords in place; alignment is task group 6.
 
 ## Decisions
 
@@ -163,7 +162,7 @@ What this deliberately does not detect: a change into new material (a bridge in 
 
 ### Decision: Alignment works on units, and leaves tabs alone
 
-To build in task group 6. A unit is a run of glued tokens (most units are a single chord). Each unit starts at the source column of its first token, shifted right only as far as needed to leave one space after the previous unit. Inside a unit the tokens are concatenated. A gap that contains a tab is copied byte for byte: tab stops cannot be shifted by a column, and they realign on their own in most viewers.
+A unit is a run of glued tokens (most units are a single chord). Each unit starts at the source column of its first token, shifted right only as far as needed to leave one space after the previous unit. Inside a unit the tokens are concatenated. A gap that contains a tab is copied byte for byte: tab stops cannot be shifted by a column, and they realign on their own in most viewers. Columns are counted afresh from the unit after such a gap. A gap in front of a unit that has not moved is copied as written; otherwise it is rebuilt from spaces.
 
 ### Decision: UI state
 

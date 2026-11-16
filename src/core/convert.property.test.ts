@@ -71,15 +71,13 @@ describe('convert: properties', () => {
     );
   });
 
-  it('line terminators and everything outside chord tokens are preserved', () => {
+  it('line terminators are preserved', () => {
     fc.assert(
       fc.property(sheet, key, (text, k) => {
         const input = text.split('\n');
         const output = convert(text, k, 'roman').split('\n');
         input.forEach((line, i) => {
           expect(output[i]!.endsWith('\r')).toBe(line.endsWith('\r'));
-          // Whitespace runs are untouched until alignment (group 6) lands.
-          expect(output[i]!.split(/\S+/)).toEqual(line.split(/\S+/));
         });
       }),
     );
