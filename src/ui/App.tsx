@@ -5,14 +5,19 @@ import type { NotationStyle } from '../core/types';
 import { CopyButton } from './CopyButton';
 import { KeyPicker, type KeyChoice } from './KeyPicker';
 import { KeyStatus } from './KeyStatus';
-import { loadStyle, saveStyle } from './storage';
+import { loadSheet, loadStyle, saveSheet, saveStyle } from './storage';
 import { StylePicker } from './StylePicker';
 import './app.css';
 
 export function App() {
-  const [sheet, setSheet] = useState('');
+  const [sheet, setSheet] = useState(loadSheet);
   const [choice, setChoice] = useState<KeyChoice>('auto');
   const [style, setStyle] = useState<NotationStyle>(loadStyle);
+
+  const editSheet = (edited: string) => {
+    setSheet(edited);
+    saveSheet(edited);
+  };
 
   const pickStyle = (picked: NotationStyle) => {
     setStyle(picked);
@@ -43,7 +48,7 @@ export function App() {
         <span className="pane-head pane-title">Chord sheet</span>
         <textarea
           value={sheet}
-          onChange={(event) => setSheet(event.target.value)}
+          onChange={(event) => editSheet(event.target.value)}
           placeholder="Paste a chord sheet here"
           spellCheck={false}
           autoCapitalize="off"

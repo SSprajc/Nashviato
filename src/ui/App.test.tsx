@@ -184,6 +184,27 @@ describe('App', () => {
     expect(await screen.findByRole('button', { name: 'Copy failed' })).toBeTruthy();
   });
 
+  it('Reload', () => {
+    render(<App />);
+    const sheet = '[Verse]\nG  D/F#  Em\nPlaceholder words here';
+    paste(sheet);
+    const converted = output();
+    expect(converted).toBe('[Verse]\nI  V/VII VIm\nPlaceholder words here');
+
+    reload();
+    expect(screen.getByLabelText<HTMLTextAreaElement>('Chord sheet').value).toBe(sheet);
+    expect(output()).toBe(converted);
+  });
+
+  it('keeps only the most recent input', () => {
+    render(<App />);
+    paste('C G');
+    paste('D A');
+    reload();
+    expect(screen.getByLabelText<HTMLTextAreaElement>('Chord sheet').value).toBe('D A');
+    expect(Object.keys(window.localStorage)).toEqual(['nashviato.sheet']);
+  });
+
   it('No chords found', () => {
     render(<App />);
     const lyrics = 'Placeholder words only\nand a second line of them';

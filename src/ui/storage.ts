@@ -29,3 +29,14 @@ export function loadStyle(): NotationStyle {
 export function saveStyle(style: NotationStyle): void {
   write(STYLE_KEY, style);
 }
+
+const SHEET_KEY = 'nashviato.sheet';
+
+/** The most recent input; one sheet only, never a library. */
+export function loadSheet(): string {
+  return read(SHEET_KEY) ?? '';
+}
+
+export function saveSheet(sheet: string): void {
+  write(SHEET_KEY, sheet);
+}
