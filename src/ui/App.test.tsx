@@ -5,7 +5,16 @@ import { join } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import { App } from './App';
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  window.localStorage.clear();
+});
+
+/** Unmounts the app and mounts it again, as a page reload would. */
+function reload() {
+  cleanup();
+  render(<App />);
+}
 
 const paste = (text: string) =>
   fireEvent.change(screen.getByLabelText('Chord sheet'), { target: { value: text } });
@@ -129,6 +138,26 @@ describe('App', () => {
     pickKey('Auto');
     expect(status()).toBe('Detected key: G major');
     expect(output()).toBe('I IV V I\nI IV V I\nVIm IV V I');
+  });
+
+  it('Switch to Arabic', () => {
+    render(<App />);
+    paste('C  Am  F  G/B');
+    expect(output()).toBe('I  VIm IV V/VII');
+
+    fireEvent.change(screen.getByLabelText('Numerals'), { target: { value: 'arabic' } });
+    expect(output()).toBe('1  6m  4  5/7');
+
+    reload();
+    expect(screen.getByLabelText<HTMLSelectElement>('Numerals').value).toBe('arabic');
+    paste('C  Am  F  G/B');
+    expect(output()).toBe('1  6m  4  5/7');
+  });
+
+  it('starts in Roman when nothing usable is stored', () => {
+    window.localStorage.setItem('nashviato.style', 'klingon');
+    render(<App />);
+    expect(screen.getByLabelText<HTMLSelectElement>('Numerals').value).toBe('roman');
   });
 
   it('No chords found', () => {

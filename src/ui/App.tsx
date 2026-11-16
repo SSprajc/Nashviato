@@ -1,13 +1,22 @@
 import { useState } from 'react';
 import { convert } from '../core/convert';
 import { detectKey } from '../core/detectKey';
+import type { NotationStyle } from '../core/types';
 import { KeyPicker, type KeyChoice } from './KeyPicker';
 import { KeyStatus } from './KeyStatus';
+import { loadStyle, saveStyle } from './storage';
+import { StylePicker } from './StylePicker';
 import './app.css';
 
 export function App() {
   const [sheet, setSheet] = useState('');
   const [choice, setChoice] = useState<KeyChoice>('auto');
+  const [style, setStyle] = useState<NotationStyle>(loadStyle);
+
+  const pickStyle = (picked: NotationStyle) => {
+    setStyle(picked);
+    saveStyle(picked);
+  };
 
   // Detection runs only on Auto. A manual key converts the whole sheet in that
   // key and drops the detected key changes; no chords means nothing to convert.
@@ -15,15 +24,18 @@ export function App() {
   const output =
     choice === 'auto'
       ? detection
-        ? convert(sheet, detection.regions, 'roman')
+        ? convert(sheet, detection.regions, style)
         : sheet
-      : convert(sheet, choice, 'roman');
+      : convert(sheet, choice, style);
 
   return (
     <main className="app">
       <header className="app-header">
         <h1>Nashviato</h1>
-        <KeyPicker value={choice} onChange={setChoice} />
+        <div className="pickers">
+          <KeyPicker value={choice} onChange={setChoice} />
+          <StylePicker value={style} onChange={pickStyle} />
+        </div>
         {choice === 'auto' && <KeyStatus sheet={sheet} detection={detection} onPick={setChoice} />}
       </header>
       <label className="pane">

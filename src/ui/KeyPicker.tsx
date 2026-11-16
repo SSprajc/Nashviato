@@ -16,7 +16,7 @@ type Props = { value: KeyChoice; onChange: (choice: KeyChoice) => void };
 /** One native select: `Auto`, then the 12 major and the 12 minor keys. A single tap on a phone. */
 export function KeyPicker({ value, onChange }: Props) {
   return (
-    <label className="key-picker">
+    <label className="picker">
       <span>Key</span>
       <select
         value={toValue(value)}

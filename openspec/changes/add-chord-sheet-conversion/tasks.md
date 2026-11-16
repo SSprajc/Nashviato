@@ -60,7 +60,7 @@ The JSON tables in `fixtures/` are the reference data for the core. Where a task
 ## 8. Notation setting
 
 - [x] 8.1 Arabic renderer with table tests
-- [ ] 8.2 Setting in the UI, persisted in `localStorage`
+- [x] 8.2 Setting in the UI, persisted in `localStorage`
 
 ## 9. Copy and restore
 
