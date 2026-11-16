@@ -38,7 +38,7 @@ The JSON tables in `fixtures/` are the reference data for the core. Where a task
 
 ## 5. Key picker
 
-- [ ] 5.1 Picker with 12 roots × major/minor; output re-renders on change
+- [x] 5.1 Picker with 12 roots × major/minor; output re-renders on change
 - [ ] 5.2 Component smoke test: paste, see numbers, change key, see update
 
 ## 6. Column alignment

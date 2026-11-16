@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import { convert } from '../core/convert';
 import type { Key } from '../core/types';
+import { KeyPicker } from './KeyPicker';
 import './app.css';
 
-// Skeleton: the key is fixed until the key picker lands (task group 5).
+// The picker starts on C major until `Auto` lands (task 7.6).
 const C_MAJOR: Key = { tonic: 0, mode: 'major' };
 
 export function App() {
   const [sheet, setSheet] = useState('');
-  const output = convert(sheet, C_MAJOR, 'roman');
+  const [key, setKey] = useState<Key>(C_MAJOR);
+  const output = convert(sheet, key, 'roman');
 
   return (
     <main className="app">
       <header className="app-header">
         <h1>Nashviato</h1>
-        <span className="key">Key: C major</span>
+        <KeyPicker value={key} onChange={setKey} />
       </header>
       <label className="pane">
         <span className="pane-title">Chord sheet</span>

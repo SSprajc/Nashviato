@@ -24,7 +24,7 @@ body {
 
 .app-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
 }
@@ -86,4 +86,25 @@ pre {
   pre {
     min-height: 70vh;
   }
+}
+
+.key-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+select {
+  /* 16px keeps iOS Safari from zooming in on focus; 2.75rem is a comfortable tap target. */
+  min-height: 2.75rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 400;
 }
