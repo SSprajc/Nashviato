@@ -1,0 +1,34 @@
+{
+  "about": [
+    "Column alignment table for convert: one chord line in, one line out, Roman style.",
+    "Derived by hand from the Column alignment requirement of the chord-conversion spec, not by running convert:",
+    "a unit (a run of glued tokens) starts at the source column of its first token; when the output before it",
+    "already reaches that column it is put exactly one space after the previous unit; a gap that contains a tab",
+    "is copied unchanged and columns are counted afresh from the unit after it; leading and trailing whitespace",
+    "are copied. Rows are [key, input, expected, what the row shows]. `\\t` is a tab."
+  ],
+  "rows": [
+    ["C", "C       G       Am", "I       V       VIm", "Shorter output keeps columns"],
+    ["C", "Am G C", "VIm V I", "Longer output avoids collision"],
+    ["C", "|Am  G|C   F|", "|VIm V|I   IV|", "Glued tokens stay glued"],
+    ["C", "Am-G-F  C", "VIm-V-IV I", "Dash-joined chords stay joined"],
+    ["C", "Am\tG\tC", "VIm\tV\tI", "Gap with a tab is copied"],
+    ["C", "Am G       C", "VIm V      I", "a later chord returns to its source column once there is room"],
+    ["C", "Am  Dm  Em  F       G", "VIm IIm IIIm IV     V", "a shift carries only as far as it has to"],
+    ["Bb", "Bb  Eb  F", "I   IV  V", "a shorter chord leaves a wider gap, so the next one keeps its column"],
+    ["G", "Intro: G  D  Em  C", "Intro: I  V  VIm IV", "a header keeps its text and its column"],
+    ["C", "| C  | N.C. | G  x2", "| I  | N.C. | V  x2", "markers keep their text and their columns"],
+    ["C", "    Dm      G7", "    IIm     V7", "leading spaces are kept"],
+    ["C", "C  G  ", "I  V  ", "trailing spaces are kept"],
+    ["C", "C  (G/B)  Am", "I  (V/VII) VIm", "a parenthesised chord is one unit"],
+    ["G", "Intro: G, D/F#, Em", "Intro: I, V/VII, VIm", "a chord and its comma are one unit"],
+    ["C", "C*  G", "I*  V", "a footnote star stays on its chord"],
+    ["C", "A-7-D7-Gmaj7  C", "VI-7-II7-Vmaj7 I", "a long dash-joined unit pushes the next unit one space off"],
+    ["C", "Am\tDm G", "VIm\tIIm V", "after a tab, columns are counted from the unit that follows it"],
+    ["C", "Am\tC   G", "VIm\tI   V", "after a tab, an unchanged width keeps the following gap"],
+    ["C", "Am \t G", "VIm \t V", "a gap of spaces and a tab is copied whole"],
+    ["C", "\tAm  G", "\tVIm V", "a leading tab is copied"],
+    ["A", "F#m  D  E", "VIm  IV V", "a longer chord uses up the gap after it before it moves its neighbour"],
+    ["C", "Bb  D/F#  Ebmaj7", "bVII II/#IV bIIImaj7", "accidentals and slash basses lengthen a chord like any suffix"]
+  ]
+}
