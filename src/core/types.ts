@@ -13,5 +13,8 @@ export type Note = { letter: Letter; accidental: -1 | 0 | 1 };
 /** A chord token split into its parts. `suffix` is opaque and copied verbatim. */
 export type ParsedChord = { root: Note; suffix: string; bass?: Note };
 
+/** A scale degree of the tonic's major scale; `accidental` is -1 for `b`, 1 for `#`. */
+export type Degree = { number: 1 | 2 | 3 | 4 | 5 | 6 | 7; accidental: -1 | 0 | 1 };
+
 /** `'arabic'` is added with its renderer in task 8.1. */
 export type NotationStyle = 'roman';
